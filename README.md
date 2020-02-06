@@ -3,5 +3,5 @@ Project in the course TNM048 Information visualization vt20
 
 By:
 Tobias Ryttlinger
-Tim Cardell
+Tim Cardell!
 Petra Gunnarsdotter
