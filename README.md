@@ -1,2 +1,7 @@
 # TNM048-Project
-Project in the course TNM048 Information visualization
+Project in the course TNM048 Information visualization vt20
+
+By:
+Tobias Ryttlinger
+Tim Cardell
+Petra Gunnarsdotter
