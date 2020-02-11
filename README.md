@@ -37,4 +37,4 @@ Windows
 Mac
 $ . venv/bin/activate
 $ export FLASK_APP=hello.py
-$ python -m flask run
+$ flask run
