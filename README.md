@@ -15,9 +15,9 @@ Petra Gunnarsdotter
 
 INSTALLERA
 Windows:
-Install python 3
+* Install python 3
 
-Öppna cmd
+* Öppna cmd och skriv följande
 ~Cd "till projektmappen"
 
 ~py -3 -m venv venv
@@ -28,7 +28,7 @@ Skappa hello.py i mappen
 
 KÖRA
 
-Windows
+Windows:
 ~venv\Scripts\activate
 ~set FLASK_APP=hello.py
 ~flask run
