@@ -1,10 +1,6 @@
 
-
-
-
-
 var world_map, focus_plus_context, points
-d3.json("./data/ethqk.geojson", function (data) {
+d3.json(".static\data\crimes-new-york-city\NYPD_Complaint_Data_Historic.csv", function (data) {
 
     //Plotting
     points = new Points();
