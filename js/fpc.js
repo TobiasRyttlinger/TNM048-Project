@@ -1,11 +1,4 @@
-/**
- *
-    Author: Kahin Akram
-    Date: Jan 24, 2020
-    TNM048 Lab 1 - Visual Information-Seeking Mantra
-    Focus+Context file
- *
-*/
+
 function focusPlusContext(data) {
 
     // Creating margins and figure sizes
