@@ -13,4 +13,24 @@ Tobias Ryttlinger
 Tim Cardell!
 Petra Gunnarsdotter
 
+INSTALLERA
+Windows:
+Install python 3
+
+Öppna cmd
+~Cd "till projektmappen"
+
+~py -3 -m venv venv
+~venv\Scripts\activate
+~pip install Flask
+
+Skappa hello.py i mappen
+
+KÖRA
+
+Windows
+~venv\Scripts\activate
+~set FLASK_APP=hello.py
+~flask run
+ 
 
