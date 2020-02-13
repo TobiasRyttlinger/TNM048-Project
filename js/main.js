@@ -6,7 +6,7 @@ d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
     points = new Points();
     //Working with the map
 
-    dbscanner = DBSCAN(data,30,1);
+    dbscanner = DBSCAN().data(data).eps(30).minPts(1);
     var point_assignment_result = dbscanner();
     console.log('Resulting DBSCAN output', point_assignment_result);
 

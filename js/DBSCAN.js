@@ -1,8 +1,9 @@
 
 (function () {
-	DBSCAN = function (data,minPoints,eps) {
-		//
-
+	DBSCAN = function () {
+		var data =[];
+		var minPoints;
+		var eps;
 		var clusters = [];
 		var distance = euclidean_distance;
 
@@ -17,7 +18,7 @@
 				}
 
 				return Math.sqrt(sum);
-		}
+		};
 
 		function getNeighbours(point_index){
 				neighbours = [];
@@ -33,7 +34,7 @@
 		}
 
 		return neighbours;
-	}
+	};
 
 			function expand_cluster(point_index, neighbours, cluster_index) {
 					clusters[cluster_index-1].push(point_index); // Add point to the cluster
@@ -57,7 +58,7 @@
 								clusters[cluster_index - 1].push(currentPointIndex);
 							}
 					}
-			}
+			};
 
 
 			var DBscan  = function(){
@@ -79,7 +80,7 @@
 								expand_cluster(i,neighbours,cluster_index	); //Expand around the new cluster!
 							}
 					}
-			}
+			};
 //Might be unnesesary :D But used to get clusters if we want to
 			DBscan.getClusters = function() {
 				var Num_Cluster = clusters.lenght;
@@ -87,7 +88,7 @@
 
 				for(var i = 0; i < Num_cluster; i++){
 
-					cluster_centers[i] = [x:0,y:0];
+					cluster_centers[i] = [0,0];
 
 					for(var j = 0; j < clusters[i].lenght; j++){
 							cluster_centers[i].x += data[clusters[i][j]].x;
@@ -100,7 +101,42 @@
 										cluster_centers[i].parts = clusters[i];
 				}
 				return cluster_centers;
+			};
+
+			DBscan.data = function (d) {
+			if (arguments.length === 0) {
+				return data;
+			}
+			if (Array.isArray(d)) {
+				data = d;
 			}
 
+			return DBscan;
+		};
+
+		DBscan.eps = function (e) {
+			if (arguments.length === 0) {
+				return eps;
+			}
+			if (typeof e === "number") {
+				eps = e;
+			}
+
+			return DBscan;
+		};
+
+		DBscan.minPts = function (p) {
+			if (arguments.length === 0) {
+				return minPts;
+			}
+			if (typeof p === "number") {
+				minPts = p;
+			}
+
+			return DBscan;
+		};
+
 		return DBscan;
+}
+
 })();
