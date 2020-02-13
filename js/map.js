@@ -11,7 +11,8 @@ function worldMap(data) {
     /**
      * Task 14 - Create a leaflet map and put center to 10,15 with zoom scale of 1
      */
-     var leaflet_map = L.map('mapid').setView([40.730610, -73.935242], 10);
+
+     var leaflet_map = L.map('mapid').setView([40.73, -73.79], 10);
 
     /**
      * Task 15 - Get the tileLayer from the link at the bottom of this file
@@ -51,8 +52,8 @@ function worldMap(data) {
     //svg coordinates except that it accepts a point from our
     //GeoJSON
     function applyLatLngToLayer(d) {
-        var x = d.geometry.coordinates[0];
-        var y = d.geometry.coordinates[1];
+        var x = d.Lat_Lon[0];
+        var y = d.Lat_Lon[1];
         //Remove comment when reached task 19
         return leaflet_map.latLngToLayerPoint(new L.LatLng(y, x));
     }
