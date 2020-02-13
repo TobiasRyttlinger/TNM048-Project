@@ -80,7 +80,7 @@
 							}
 					}
 			}
-
+//Might be unnesesary :D But used to get clusters if we want to
 			DBscan.getClusters = function() {
 				var Num_Cluster = clusters.lenght;
 				var cluster_centers = [];
@@ -95,10 +95,12 @@
 
 					}
 					clusters_centers[i].x /= clusters[i].length;
-										clusters_centers[i].y /= clusters[i].length;
-										clusters_centers[i].dimension = clusters[i].length;
-										clusters_centers[i].parts = clusters[i];
+										cluster_centers[i].y /= clusters[i].length;
+										cluster_centers[i].dimension = clusters[i].length;
+										cluster_centers[i].parts = clusters[i];
 				}
+				return cluster_centers;
 			}
+
 		return DBscan;
 })();
