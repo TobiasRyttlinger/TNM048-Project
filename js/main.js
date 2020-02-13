@@ -1,7 +1,7 @@
 
 var world_map, focus_plus_context, points
-d3.json(".static\data\crimes-new-york-city\NYPD_Complaint_Data_Historic.csv", function (data) {
-
+console.log(location)
+d3.csv("data/Population_by_Borough_NYC.csv", function(data){
     //Plotting
     points = new Points();
     //Working with the map
@@ -9,4 +9,4 @@ d3.json(".static\data\crimes-new-york-city\NYPD_Complaint_Data_Historic.csv", fu
     //Working with the focus+context
     focus_plus_context = new focusPlusContext(data);
 
-})
+});
