@@ -11,7 +11,7 @@ function worldMap(data) {
     /**
      * Task 14 - Create a leaflet map and put center to 10,15 with zoom scale of 1
      */
-     var leaflet_map = L.map('mapid').setView([10, 15], 1);
+     var leaflet_map = L.map('mapid').setView([40.730610, -73.935242], 10);
 
     /**
      * Task 15 - Get the tileLayer from the link at the bottom of this file

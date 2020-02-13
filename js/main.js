@@ -1,12 +1,11 @@
 
-var world_map, focus_plus_context, points
-console.log(location)
-d3.csv("data/Population_by_Borough_NYC.csv", function(data){
-    //Plotting
-    points = new Points();
-    //Working with the map
+var dbscanner
+
+d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
     world_map = new worldMap(data);
-    //Working with the focus+context
-    focus_plus_context = new focusPlusContext(data);
+
+    dbscanner = DBSCAN(data,30,1);
+    var point_assignment_result = dbscanner();
+    console.log('Resulting DBSCAN output', point_assignment_result);
 
 });
