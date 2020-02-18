@@ -5,19 +5,11 @@
 		var minPoints;
 		var eps;
 		var clusters = [];
+		var status = [];
 		var distance = euclidean_distance;
 
 		function euclidean_distance(point1,point2){
-				if (point1.length != point2.length){
-					throw ("point1 and point2 must be of same dimension");
-				}
-
-				var sum =0;
-				for(var i = 0; i < point1.length; i++){
-					sum += Math.pow(Math.abs(point1[i] - point2[i]),2);
-				}
-
-				return Math.sqrt(sum);
+				return Math.sqrt(Math.pow((point2.Latitude - point1.Latitude), 2) + Math.pow((point2.Longitude - point1.Longitude), 2));
 		};
 
 		function getNeighbours(point_index){
@@ -29,6 +21,7 @@
 						continue;
 					}
 					if(distance(data[i],d) <= eps){
+				
 						neighbours.push(i);
 					}
 		}
@@ -43,7 +36,7 @@
 					for( var i = 0; i < neighbours.length; i++){
 						var currentPointIndex = neighbours[i];  //Get current index from neighbours
 
-							if(status[currentPointIndex]== undefined) { //if we have not visited or assigned the current point
+							if(status[currentPointIndex] === undefined) { //if we have not visited or assigned the current point
 
 								status[currentPointIndex] = 0; //Marks that the point have been visited now
 								var currentNeighbour = getNeighbours(currentPointIndex); //Get neighbours to the visited point
@@ -67,30 +60,34 @@
 					clusters = [];
 
 					for(var i = 0; i < data.length; i++){ // Loop through data to get each memeber
-							if(status[i] == undefined){ //Status has not been visited yet
+
+							if(status[i] === undefined){ //Status has not been visited yet
+
 								var neighbours = getNeighbours(i); //Get neighbours of current index
-								var NumNeighbours = neighbours.length; // Check lenght as before
+								var NumNeighbours = neighbours.length; // Check length as before
 								if(NumNeighbours < minPoints){
 									status[i] = 0; //Irrelant, treated as noise
 								}
-							}
-							else{ //creating empty cluster
-								clusters.push([i]);
-								var cluster_index = clusters.lenght; //Reach index of new cluster with the knowledge that it is added at the end of the list.
-								expand_cluster(i,neighbours,cluster_index	); //Expand around the new cluster!
+								else{ //creating empty cluster
+									clusters.push([]);
+									var cluster_index = clusters.length; //Reach index of new cluster with the knowledge that it is added at the end of the list.
+									expand_cluster(i,neighbours,cluster_index	); //Expand around the new cluster!
+								}
 							}
 					}
+
+					return status;
 			};
 //Might be unnesesary :D But used to get clusters if we want to
 			DBscan.getClusters = function() {
-				var Num_Cluster = clusters.lenght;
+				var Num_Cluster = clusters.length;
 				var cluster_centers = [];
 
 				for(var i = 0; i < Num_cluster; i++){
 
 					cluster_centers[i] = [0,0];
 
-					for(var j = 0; j < clusters[i].lenght; j++){
+					for(var j = 0; j < clusters[i].length; j++){
 							cluster_centers[i].x += data[clusters[i][j]].x;
 						  cluster_centers[i].y += data[clusters[i][j]].y;
 
@@ -106,6 +103,7 @@
 			DBscan.data = function (d) {
 			if (arguments.length === 0) {
 				return data;
+
 			}
 			if (Array.isArray(d)) {
 				data = d;
