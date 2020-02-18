@@ -1,6 +1,7 @@
 
 var world_map, focus_plus_context, points,dbscanner
 
+
 d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
     data = parseData(data);
 
@@ -16,6 +17,7 @@ d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
     world_map = new worldMap(data);
 
 });
+
 
 function parseData(data){
     var d = [];
