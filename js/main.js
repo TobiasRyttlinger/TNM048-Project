@@ -2,22 +2,18 @@
 var world_map, focus_plus_context, points,dbscanner
 
 d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
-    data = parseData(data)
-    console.log(data)
-    //Plotting
-    points = new Points();
-    //Working with the map
+    data = parseData(data);
 
-    world_map = new worldMap(data);
-    //Working with the focus+context
-    focus_plus_context = new focusPlusContext(data);
-
-
-    dbscanner = DBSCAN().data(data).eps(30).minPts(1);
+    dbscanner = DBSCAN().data(data.features).eps(0.2).minPts(5);
     var point_assignment_result = dbscanner();
     console.log('Resulting DBSCAN output', point_assignment_result);
+    var ClusterData  = [];
 
+    point_assignment_result.forEach(function (d, i) {
+    			data.features[i].cluster = d;
+    		});
 
+    world_map = new worldMap(data);
 
 });
 
@@ -35,7 +31,7 @@ function parseData(data){
                 Time_solved: (element.CMPLNT_TO_TM),
                 Type: element.OFNS_DESC,
                 KeyCord: parseInt(element.KY_CD),
-                Boro: element.BORO_NM, 
+                Boro: element.BORO_NM,
             }
             );
     });
