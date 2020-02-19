@@ -8,37 +8,36 @@
 		var status = [];
 		var distance = haversine_distance;
 
-
 		function euclidean_distance(point1,point2){
 
 				return Math.sqrt(Math.pow((point1.Latitude - point2.Latitude), 2) + Math.pow((point1.Longitude - point2.Longitude), 2));
 		};
 
-
 		function haversine_distance(point1, point2) {
-			// default 4 sig figs reflects typical 0.3% accuracy of spherical model
-			if (typeof precision === 'undefined') {
-				var precision = 4;
-			}
+					// default 4 sig figs reflects typical 0.3% accuracy of spherical model
+					if (typeof precision === 'undefined') {
+						var precision = 4;
+					}
 
-			var R = 6371;
-			var lat1 =point1.Latitude  * Math.PI / 180,
-				lon1 = point1.Longitude * Math.PI / 180;
-			var lat2 =point1.Latitude * Math.PI / 180,
-				lon2 = point2.Longitude * Math.PI / 180;
+					var R = 6371;
+					var lat1 = point1.Latitude * Math.PI / 180,
+						lon1 = point1.Longitude * Math.PI / 180;
+					var lat2 = point2.Latitude * Math.PI / 180,
+						lon2 = point2.Longitude * Math.PI / 180;
 
-			var dLat = lat2 - lat1;
-			var dLon = lon2 - lon1;
+					var dLat = lat2 - lat1;
+					var dLon = lon2 - lon1;
 
-			var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-				Math.cos(lat1) * Math.cos(lat2) *
-				Math.sin(dLon / 2) * Math.sin(dLon / 2);
+					var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+						Math.cos(lat1) * Math.cos(lat2) *
+						Math.sin(dLon / 2) * Math.sin(dLon / 2);
 
-			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-			var d = R * c;
+					var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+					var d = R * c;
 
-			return d.toPrecision(precision);
-		}
+					return d.toPrecision(precision);
+				}
+
 
 
 		function getNeighbours(point_index){
@@ -69,8 +68,7 @@
 								status[currentPointIndex] = 0; //Marks that the point have been visited now
 								var currentNeighbour = getNeighbours(currentPointIndex); //Get neighbours to the visited point
 								var numCurrNeighbours = currentNeighbour.length; // Get amount of neighbours that matches our Epsilon
-
-								if(numCurrNeighbours >= minPoints){ //If  the cluster does not match our current set min number of points
+								if(numCurrNeighbours < minPoints){ //If  the cluster does not match our current set min number of points
 									expand_cluster(currentPointIndex,currentNeighbour,cluster_index);	//Run expand cluster again to get more points!
 								}
 							}
@@ -89,11 +87,12 @@
 					for(var i = 0; i < data.length; i++){ // Loop through data to get each memeber
 
 							if(status[i] === undefined){ //Status has not been visited yet
-
+								status[i] = 0;
 								var neighbours = getNeighbours(i); //Get neighbours of current index
 								var NumNeighbours = neighbours.length; // Check length as before
-								if(NumNeighbours < minPoints){
-									status[i] = 0; //Irrelant, treated as noise
+							//	console.log(NumNeighbours)
+								if(NumNeighbours < minPts){
+									status[i] = 9; //Irrelant, treated as noise
 								}
 								else{ //creating empty cluster
 									clusters.push([]);
@@ -133,9 +132,11 @@
 
 		DBscan.minPts = function (p) {
 			if (arguments.length === 0) {
+
 				return minPts;
 			}
 			if (typeof p === "number") {
+
 				minPts = p;
 			}
 

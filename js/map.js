@@ -31,18 +31,13 @@ function worldMap(data,numClusters) {
 
         }
     }
-    var i = 0;
-    while(i < 27){
 
-      data.features.shift();
-      i++;
-    }
 
 
      var cValue = function(d) { return d;};
      var scaleQuantColor = d3.scaleQuantile()
-    .range(colorbrewer.Spectral[9])
-    .domain([0,9]);
+    .range(colorbrewer.Spectral[11])
+    .domain([0,11]);
 
 
 
