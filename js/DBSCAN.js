@@ -6,12 +6,14 @@
 		var eps;
 		var clusters = [];
 		var status = [];
-		var distance = euclidean_distance;
+		var distance = haversine_distance;
+
 
 		function euclidean_distance(point1,point2){
 
 				return Math.sqrt(Math.pow((point1.Latitude - point2.Latitude), 2) + Math.pow((point1.Longitude - point2.Longitude), 2));
 		};
+
 
 		function haversine_distance(point1, point2) {
 			// default 4 sig figs reflects typical 0.3% accuracy of spherical model
@@ -84,7 +86,6 @@
 				//Creating variables
 					status = [];
 					clusters = [];
-
 					for(var i = 0; i < data.length; i++){ // Loop through data to get each memeber
 
 							if(status[i] === undefined){ //Status has not been visited yet
