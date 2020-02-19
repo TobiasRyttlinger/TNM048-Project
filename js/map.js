@@ -1,4 +1,4 @@
-function worldMap(data) {
+function worldMap(data,numClusters) {
 
 
     var leaflet_map = L.map('mapid').setView([40.730610, -73.935242], 10);
@@ -17,7 +17,6 @@ function worldMap(data) {
     }
 
 
-
     var transform = d3.geoTransform({point: projectPointsOnMap});
     var d3path = d3.geoPath().projection(transform);
 
@@ -34,19 +33,25 @@ function worldMap(data) {
     }
 
 
+
      var cValue = function(d) { return d;};
      var scaleQuantColor = d3.scaleQuantile()
-     .range(["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb",
-             "#41b6c4","#1d91c0","#225ea8","#253494","#081d58"])
-     .domain([0,9]);
+    .range(colorbrewer.Paired[12])
+    .domain([0,12]);
 
+    var i = 0;
+    while(i < 27){
+
+      data.features.shift();
+      i++;
+    }
 
     var feature = g.selectAll("circle")
                 .data(data.features)
                 .enter()
                 .append("circle")
                 .attr("class", "mapcircle")
-                .style("opacity", 1)
+                .style("opacity", 0.8)
                 .attr('r', 5)
                  .style("fill", function(d) {
                     return scaleQuantColor(cValue(d.cluster));

@@ -8,12 +8,16 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='libs/css/index.css') }}" />
   <link rel="stylesheet" href="{{ url_for('static', filename='libs/bootstrap/css/bootstrap.min.css') }}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.css" />
--->
+--><script src="https://d3js.org/colorbrewer.v1.min.js"></script>
 <link rel="stylesheet" href="libs/css/index.css" />
 <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css" />
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.css" />
-<script type="text/javascript" src="js/DBSCAN.js"></script>
+<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css' rel='stylesheet' />
+<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css' rel='stylesheet' />
+
+
+
 </head>
 
 <body class="container-fluid">
@@ -45,8 +49,11 @@
 <script type=text/javascript src="libs/jquery/jquery.min.js"></script>
 <script type=text/javascript src="libs/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="libs/d3/d3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet-src.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/leaflet-src.js"></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js'></script>
 <!-- our scripts -->
+
+<script type="text/javascript" src="js/DBSCAN.js"></script>
 <script src="js/color_info.js"></script>
 <script src="js/plot_points.js"></script>
 <script src="js/fpc.js"></script>

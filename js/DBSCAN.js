@@ -10,26 +10,50 @@
 
 		function euclidean_distance(point1,point2){
 
-				return Math.sqrt(Math.pow((point2.Latitude - point1.Latitude), 2) + Math.pow((point2.Longitude - point1.Longitude), 2));
+				return Math.sqrt(Math.pow((point1.Latitude - point2.Latitude), 2) + Math.pow((point1.Longitude - point2.Longitude), 2));
 		};
+
+		function haversine_distance(point1, point2) {
+			// default 4 sig figs reflects typical 0.3% accuracy of spherical model
+			if (typeof precision === 'undefined') {
+				var precision = 4;
+			}
+
+			var R = 6371;
+			var lat1 =point1.Latitude  * Math.PI / 180,
+				lon1 = point1.Longitude * Math.PI / 180;
+			var lat2 =point1.Latitude * Math.PI / 180,
+				lon2 = point2.Longitude * Math.PI / 180;
+
+			var dLat = lat2 - lat1;
+			var dLon = lon2 - lon1;
+
+			var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+				Math.cos(lat1) * Math.cos(lat2) *
+				Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+			var d = R * c;
+
+			return d.toPrecision(precision);
+		}
+
 
 		function getNeighbours(point_index){
 				neighbours = [];
 				var d = data[point_index];
 
-				for(var i = 0; i<data.length; i++){
-
-					if(point_index === 1){
+				for(var i = 0; i< data.length; i++){
+					if(point_index === i){
 						continue;
 					}
 					if(distance(data[i].properties,d.properties) <= eps){
-
 						neighbours.push(i);
 					}
 		}
 
 		return neighbours;
-	};
+	}
 
 			function expand_cluster(point_index, neighbours, cluster_index) {
 					clusters[cluster_index-1].push(point_index); // Add point to the cluster
@@ -42,10 +66,10 @@
 
 								status[currentPointIndex] = 0; //Marks that the point have been visited now
 								var currentNeighbour = getNeighbours(currentPointIndex); //Get neighbours to the visited point
-								numCurrNeighbours = currentNeighbour.length; // Get amount of neighbours that matches our Epsilon
+								var numCurrNeighbours = currentNeighbour.length; // Get amount of neighbours that matches our Epsilon
 
-								if(numCurrNeighbours < minPoints){ //If  the cluster does not match our current set min number of points
-									expand_cluster(currentPointIndex,numCurrNeighbours,cluster_index);	//Run expand cluster again to get more points!
+								if(numCurrNeighbours >= minPoints){ //If  the cluster does not match our current set min number of points
+									expand_cluster(currentPointIndex,currentNeighbour,cluster_index);	//Run expand cluster again to get more points!
 								}
 							}
 							else if(status[currentPointIndex] < 1){ //When current point is not assigned but visited (= 0)
@@ -53,7 +77,7 @@
 								clusters[cluster_index - 1].push(currentPointIndex);
 							}
 					}
-			};
+			}
 
 
 			var DBscan  = function(){
@@ -78,29 +102,10 @@
 							}
 					}
 
-					return status;
+					return [status,clusters.length];
 			};
-//Might be unnesesary :D But used to get clusters if we want to
-			DBscan.getClusters = function() {
-				var Num_Cluster = clusters.length;
-				var cluster_centers = [];
 
-				for(var i = 0; i < Num_cluster; i++){
 
-					cluster_centers[i] = [0,0];
-
-					for(var j = 0; j < clusters[i].length; j++){
-							cluster_centers[i].x += data[clusters[i][j]].x;
-						  cluster_centers[i].y += data[clusters[i][j]].y;
-
-					}
-					clusters_centers[i].x /= clusters[i].length;
-										cluster_centers[i].y /= clusters[i].length;
-										cluster_centers[i].dimension = clusters[i].length;
-										cluster_centers[i].parts = clusters[i];
-				}
-				return cluster_centers;
-			};
 
 			DBscan.data = function (d) {
 			if (arguments.length === 0) {
