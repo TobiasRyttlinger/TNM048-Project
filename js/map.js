@@ -31,20 +31,20 @@ function worldMap(data,numClusters) {
 
         }
     }
+
+
+
+     var cValue = function(d) { return d;};
+     var scaleQuantColor = d3.scaleQuantile()
+    .range(colorbrewer.Paired[12])
+    .domain([0,12]);
+
     var i = 0;
     while(i < 27){
 
       data.features.shift();
       i++;
     }
-
-
-     var cValue = function(d) { return d;};
-     var scaleQuantColor = d3.scaleQuantile()
-    .range(colorbrewer.Spectral[9])
-    .domain([0,9]);
-
-
 
     var feature = g.selectAll("circle")
                 .data(data.features)
@@ -53,9 +53,21 @@ function worldMap(data,numClusters) {
                 .attr("class", "mapcircle")
                 .style("opacity", 0.8)
                 .attr('r', 5)
-                 .style("fill", function(d) {
+                .style("fill", function(d) {
                     return scaleQuantColor(cValue(d.cluster));
-                  });
+                  })
+                .on('mouseover', function(d){
+                  d3.select(this)
+                    .attr('r', 10)
+                    d3.select('#infobox')
+                      .text('Cluster: ' + d.cluster);
+                })
+                .on('mouseout', function(d){
+                  d3.select(this)
+                    .transition()
+                    .duration(300)
+                    .attr('r', 5);
+                })
 
     leaflet_map.on("moveend", reset);
     reset();
