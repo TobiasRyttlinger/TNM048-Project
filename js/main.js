@@ -4,8 +4,8 @@ var world_map, focus_plus_context, points,dbscanner
 
 d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
     data = parseData(data);
-    console.log(data)
-    dbscanner = DBSCAN().data(data.features).eps(0.2).minPts(5);
+
+    dbscanner = DBSCAN().data(data.features).eps(0.2).minPts(10);
     var point_assignment_result = dbscanner();
     console.log('Resulting DBSCAN output', point_assignment_result);
     var ClusterData  = [];
@@ -24,8 +24,8 @@ function parseData(data){
     var i = 0;
     var timeParse = d3.timeParse("%d/%m/%Y");
     data.forEach(element => {
-        
-       
+
+
         d.push({geometry:{
             type:"Point",
             coordinates:[
@@ -45,10 +45,9 @@ function parseData(data){
                 Boro: element.BORO_NM,
             }}
             );
-        
+
     });
     var datany = {type: "FeatureCollection", features: d};
     return datany;
 
 }
-

@@ -9,6 +9,7 @@
 		var distance = euclidean_distance;
 
 		function euclidean_distance(point1,point2){
+
 				return Math.sqrt(Math.pow((point2.Latitude - point1.Latitude), 2) + Math.pow((point2.Longitude - point1.Longitude), 2));
 		};
 
@@ -17,11 +18,12 @@
 				var d = data[point_index];
 
 				for(var i = 0; i<data.length; i++){
-					if(point_index == 1){
+
+					if(point_index === 1){
 						continue;
 					}
-					if(distance(data[i],d) <= eps){
-				
+					if(distance(data[i].properties,d.properties) <= eps){
+
 						neighbours.push(i);
 					}
 		}

@@ -3,7 +3,7 @@ function worldMap(data) {
     /**
      * Task 14 - Create a leaflet map and put center to 10,15 with zoom scale of 1
      */
-    var leaflet_map = L.map('mapid').setView([10, 15], 1);
+    var leaflet_map = L.map('mapid').setView([40.758896, -73.985130], 12);
 
     /**
      * Task 15 - Get the tileLayer from the link at the bottom of this file
@@ -28,7 +28,7 @@ function worldMap(data) {
         var points = leaflet_map.latLngToLayerPoint(new L.LatLng(x,y));
         this.stream.point(points.x, points.y);
         }
-    } 
+    }
     /**
      * Task 18 - Now we need to transform all to the specific projection
      * create a variable called transform and use d3.geoTransform with the function above a parameter
@@ -49,7 +49,7 @@ function worldMap(data) {
         }
         else{
             return leaflet_map.latLngToLayerPoint(new L.LatLng(0, 0));
-        
+
         }
     }
     //<---------------------------------------------------------------------------------------------------->
@@ -60,16 +60,24 @@ function worldMap(data) {
      * select all circle from g tag and use data.features.
      * Also add a class called mapcircle and set opacity to 0.4
      */
+     var cValue = function(d) { return d;};
+     var scaleQuantColor = d3.scaleQuantile()
+     .range(["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb",
+             "#41b6c4","#1d91c0","#225ea8","#253494","#081d58"])
+     .domain([0,9]);
+
     //features for the points
     var feature = g.selectAll("circle")
                 .data(data.features)
-                .enter() 
+                .enter()
                 .append("circle")
                 .attr("class", "mapcircle")
-                .style("opacity", 0.5)
-                .attr('r', 7)
-                .attr('fill', "#4d4d4d") ;
-  
+                .style("opacity", 1)
+                .attr('r', 5)
+                 .style("fill", function(d) {
+                    return scaleQuantColor(cValue(d.cluster));
+                  });
+
     /**
      * Task 20 - Call the plot function with feature variable
      * not integers needed.
@@ -181,7 +189,7 @@ function worldMap(data) {
 
     //Link to get the leaflet map
     function map_link() {
-        return "https://api.mapbox.com/styles/v1/josecoto/civ8gwgk3000a2ipdgnsscnai/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoiam9zZWNvdG8iLCJhIjoiY2l2OGZxZWNuMDAxODJ6cGdhcGFuN2IyaCJ9.7szLs0lc_2EjX6g21HI_Kg";
+        return "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png";
     }
 
 }
