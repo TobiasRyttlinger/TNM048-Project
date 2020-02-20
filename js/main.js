@@ -5,7 +5,7 @@ var world_map, focus_plus_context, points,dbscanner
 d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
     data = parseData(data);
 
-    dbscanner = DBSCAN().eps(15).minPts(70).data(data.features);
+    dbscanner = DBSCAN().eps(0.01).minPts(3).data(data.features);
     var [point_assignment_result,NumClusters] = dbscanner();
     console.log('Resulting DBSCAN output', point_assignment_result);
     console.log('Number of clusters', NumClusters);
