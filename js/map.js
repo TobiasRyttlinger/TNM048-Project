@@ -37,8 +37,8 @@ function worldMap(data,numClusters) {
      var cValue = function(d) { return d;};
      var scaleQuantColor = d3.scaleQuantile()
 
-    .range(colorbrewer.Paired[12])
-    .domain([0,12]);
+    .range(colorbrewer.Spectral[11])
+    .domain([0,11]);
 
 
 
@@ -55,8 +55,21 @@ function worldMap(data,numClusters) {
                 .on('mouseover', function(d){
                   d3.select(this)
                     .attr('r', 10)
-                    d3.select('#infobox')
-                      .text('Cluster: ' + d.cluster);
+                    var select = d3.select('#infobox')
+                    select
+                      .select('#longitude')
+                      .text('Longitude: ' + d.properties.Longitude);
+                    select
+                      .select('#latitude')
+                      .text('Latitude: ' + d.properties.Latitude);
+                    select
+                      .select('#type')
+                      .text('Type of crime: ' + d.properties.Type);
+                    select
+                      .select('#borough')
+                      .text('Borough: ' + d.properties.Boro);
+
+
                 })
                 .on('mouseout', function(d){
                   d3.select(this)
