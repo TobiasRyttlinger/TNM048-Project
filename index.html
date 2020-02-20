@@ -25,25 +25,39 @@
 
   <div id="mapid"></div>
 
-
   <div class="card text-center">
     <div class="card-header">
       <h2>New York crime data</h2>
-
-        <div id="chartholder"> </div>
+      <div id="infobox">
+        <div id="longitude"> </div>
+        <div id="latitude"> </div>
+        <div id="type"> </div>
+        <div id="borough"> </div>
+        <div id="date"> </div>
+      </div>
     </div>
 
-    <div id="infobox">
-      <div id="borough"> </div>
-      <div id="date"> </div>
-      <div id="report"> </div>
-      <div id="completed"> </div>
-      <div id="place"> </div>
-      <div id="type"> </div>
-
-    </div>
   </div>
 </body>
+<!--
+<script type=text/javascript src="{{ url_sfor('static', filename='libs/jquery/jquery.min.js') }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='libs/bootstrap/js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='libs/d3/d3.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet-src.js"></script>
+
+<script src="{{ url_for('static', filename='js/color_info.js') }}"></script>
+<script src="{{ url_for('static', filename='js/plot_points.js') }}"></script>
+<script src="{{ url_for('static', filename='js/fpc.js') }}"></script>
+<script src="{{ url_for('static', filename='js/map.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+
+-->
+<script type=text/javascript src="libs/jquery/jquery.min.js"></script>
+<script type=text/javascript src="libs/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="libs/d3/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/leaflet-src.js"></script>
+<!-- our scripts -->
 
 <script type="text/javascript" src="js/DBSCAN.js"></script>
 <script src="js/map.js"></script>
