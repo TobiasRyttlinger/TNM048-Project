@@ -1,10 +1,11 @@
 
-var world_map, focus_plus_context, points,dbscanner
+var world_map,dbscanner, chart
 
 
 d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
     data = parseData(data);
     console.log(data)
+
 
     dbscan_result = DBSCAN().eps(0.015).minPts(20).data(data.features);
     var [ClusterAssignment,NumClusters] = dbscan_result();
@@ -16,12 +17,14 @@ d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
     console.log('Resulting DBSCAN output', ClusterAssignment);
 
     console.log('Number of clusters', NumClusters);
+
     var ClusterData  = [];
     var numberOfClusters = [];
     ClusterAssignment.forEach(function (d, i) {
     			data.features[i].cluster = d;
     		});
     world_map = new worldMap(data,NumClusters);
+    chart = new chart(data);
 
 });
 

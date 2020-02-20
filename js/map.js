@@ -95,10 +95,6 @@ function worldMap(data,numClusters) {
     leaflet_map.on("moveend", reset);
     reset();
 
-
-
-
-    // Recalculating bounds for redrawing points each time map changes
     function reset() {
         var bounds = d3path.bounds(data)
         topLeft = [bounds[0][0] + 10, bounds[0][1] - 10]
@@ -128,19 +124,12 @@ function worldMap(data,numClusters) {
             .transition()
             .duration(800);
 
-        //Call plot funtion.
-        points.plot(map_points_change)
 
         d3.selectAll(".mapcircle")
             .filter(function (d) { return curr_view_erth.indexOf(d.id) == -1; })
             .transition()
             .duration(800)
             .attr('r', 0)
-    }
-
-
-    this.hovered = function (input_point) {
-        console.log("If time allows you, implement something here!");
     }
 
     function map_link() {
