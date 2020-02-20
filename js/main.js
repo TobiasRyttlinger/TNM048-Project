@@ -15,10 +15,8 @@ d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
 
 
     console.log('Resulting DBSCAN output', ClusterAssignment);
-
     console.log('Number of clusters', NumClusters);
 
-    var ClusterData  = [];
     var numberOfClusters = [];
     ClusterAssignment.forEach(function (d, i) {
     			data.features[i].cluster = d;
