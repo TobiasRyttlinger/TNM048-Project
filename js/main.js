@@ -6,19 +6,10 @@ d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
     data = parseData(data);
     console.log(data)
 
-    dbscanner = DBSCAN().eps(0.015).minPts(30).data(data.features);
-    var [ClusterAssignment,NumClusters] = dbscanner();
+    dbscan_result = DBSCAN().eps(0.015).minPts(20).data(data.features);
+    var [ClusterAssignment,NumClusters] = dbscan_result();
 
-    var i = 0;
-    while (i < data.features.length){
-      const index = ClusterAssignment.indexOf(0);
 
-      if (index > -1) {
-         ClusterAssignment.splice(index, 1);
-         data.features.splice(index, 1);
-      }
-      i++;
-    }
 
 
 
@@ -70,10 +61,10 @@ function parseData(data){
 
 }
 function dateParse(d){
-    var v = d.split('/'); 
+    var v = d.split('/');
     return {string: d, date: parseInt(v[0]), month: parseInt(v[1]), year: parseInt(v[2])}
 }
 function timeP(d){
-    var v = d.split(':'); 
+    var v = d.split(':');
     return {string: d, hour: parseInt(v[0]), min: parseInt(v[1]), sec: parseInt(v[2])}
 }

@@ -298,6 +298,6 @@ var colorbrewer = {YlGn: {
 9: ["#8dd3c7","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462","#b3de69","#fccde5","#d9d9d9"],
 10: ["#8dd3c7","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462","#b3de69","#fccde5","#d9d9d9","#bc80bd"],
 11: ["#8dd3c7","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462","#b3de69","#fccde5","#d9d9d9","#bc80bd","#ccebc5"],
-12: ["#8dd3c7","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462","#b3de69","#fccde5","#d9d9d9","#bc80bd","#ccebc5","#ffed6f"]
-16: ['#00000d', '#271f31', '#393d51', '#456072', '#4b8593', '#4aacb6', '#3dd5da', '#00ffff', '#ffdac4', '#ffb3a7', '#fb8a8c', '#eb6574', '#d5405e', '#b81b4a', '#93003a']
+12: ["#00000d","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462","#b3de69","#fccde5","#d9d9d9","#bc80bd","#ccebc5","#00000d"]
+15: ["#00000d", "#271f31", "#393d51", "#456072", "#4b8593", "#4aacb6", "#3dd5da", "#00ffff", "#ffdac4", "#ffb3a7", "#fb8a8c", "#eb6574", "#d5405e", "#b81b4a", "#93003a"]
 }};
