@@ -6,7 +6,7 @@
 		var eps;
 		var clusters = [];
 		var status = [];
-		var distance = haversine_distance;
+		var distance = euclidean_distance;
 
 		function euclidean_distance(point1,point2){
 
@@ -102,6 +102,8 @@
 								}
 							}
 					}
+
+
 
 					return [status,clusters.length];
 			};
