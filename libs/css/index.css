@@ -29,10 +29,11 @@
 }
 #infobox{
   position: absolute;
-  bottom: -60px;
+  bottom: -140px;
   right: 40px;
-  background-color: antiquewhite;
+  background-color: white;
   opacity: 0.7;
   height: fit-content;
   width: 250px;
+  border-radius: 5px;
 }
