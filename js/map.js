@@ -57,17 +57,31 @@ function worldMap(data,numClusters) {
                     .attr('r', 10)
                     var select = d3.select('#infobox')
                     select
-                      .select('#longitude')
-                      .text('Longitude: ' + d.properties.Longitude);
+                      .select('#borough')
+                      .text('Borough: ' + d.properties.Boro.toLowerCase());
                     select
-                      .select('#latitude')
-                      .text('Latitude: ' + d.properties.Latitude);
+                      .select('#date')
+                      .text('Date: ' + d.properties.Date_occurance.string+
+                            " Time: "+ d.properties.Time_occurance.string);
+                    select
+                      .select('#report')
+                      .text(function () {
+                        var day = d.properties.Reported.date -d.properties.Date_occurance.date;
+                        var m = d.properties.Reported.month- d.properties.Date_occurance.month;
+                        var y = d.properties.Reported.year - d.properties.Date_occurance.year;
+                        var total = y*365 + m*30 +day;
+                        
+                        return 'Reported after : ' + total + " days";})                          
+                    select
+                      .select('#completed')
+                      .text('The crime was: ' + d.properties.Completed.toLowerCase());
+                    select
+                      .select('#place')
+                      .text('Place the crime was  commited: ' + d.properties.Place. toLowerCase());
                     select
                       .select('#type')
-                      .text('Type of crime: ' + d.properties.Type);
-                    select
-                      .select('#borough')
-                      .text('Borough: ' + d.properties.Boro);
+                      .text('Type of crime: ' + d.properties.Type.toLowerCase());
+                    
 
 
                 })
