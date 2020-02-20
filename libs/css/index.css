@@ -27,3 +27,12 @@
   opacity: 0.5;
   background-color:black;
 }
+#infobox{
+  position: absolute;
+  bottom: -60px;
+  right: 40px;
+  background-color: antiquewhite;
+  opacity: 0.7;
+  height: fit-content;
+  width: 250px;
+}
