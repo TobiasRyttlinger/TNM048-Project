@@ -4,7 +4,7 @@ var world_map, focus_plus_context, points,dbscanner
 
 d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
     data = parseData(data);
-
+    console.log(data)
     dbscanner = DBSCAN().eps(15).minPts(70).data(data.features);
     var [point_assignment_result,NumClusters] = dbscanner();
     console.log('Resulting DBSCAN output', point_assignment_result);
@@ -36,13 +36,15 @@ function parseData(data){
             {
                 Latitude: parseFloat(element.Latitude),
                 Longitude: parseFloat(element.Longitude),
-                Date_occurance: timeParse(element.CMPLNT_FR_DT),
-                Time_occurance: element.CMPLNT_FR_TM,
-                Date_solved: timeParse(element.CMPLNT_TO_DT),
-                Time_solved: (element.CMPLNT_TO_TM),
+                Date_occurance: dateParse(element.CMPLNT_FR_DT ),
+                Time_occurance: timeP(element.CMPLNT_FR_TM),
+                Reported: dateParse(element.RPT_DT),
+                Completed: element.CRM_ATPT_CPTD_CD,
+                Level: element.LAW_CAT_CD,
                 Type: element.OFNS_DESC,
                 KeyCord: parseInt(element.KY_CD),
                 Boro: element.BORO_NM,
+                Place: element.PREM_TYP_DESC
             }}
             );
 
@@ -50,4 +52,12 @@ function parseData(data){
     var datany = {type: "FeatureCollection", features: d};
     return datany;
 
+}
+function dateParse(d){
+    var v = d.split('/'); 
+    return {string: d, date: parseInt(v[0]), month: parseInt(v[1]), year: parseInt(v[2])}
+}
+function timeP(d){
+    var v = d.split(':'); 
+    return {string: d, hour: parseInt(v[0]), min: parseInt(v[1]), sec: parseInt(v[2])}
 }
