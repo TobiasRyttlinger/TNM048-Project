@@ -37,8 +37,8 @@ function worldMap(data,numClusters) {
      var cValue = function(d) { return d;};
      var scaleQuantColor = d3.scaleQuantile()
 
-    .range(colorbrewer.Spectral[11])
-    .domain([0,11]);
+    .range(["#111111","#1f78b4","#b2df8a","#33a02c","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6","#6a3d9a","#ffff99","#b15928"])
+    .domain([0,12]);
 
 
 
