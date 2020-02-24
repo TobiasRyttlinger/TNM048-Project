@@ -21,7 +21,7 @@ d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
     ClusterAssignment.forEach(function (d, i) {
     			data.features[i].cluster = d;
     		});
-   // world_map = new worldMap(data,NumClusters);
+    world_map = new worldMap(data,NumClusters);
     chart = new parallelCoordinates(data);
 
 });
@@ -50,7 +50,7 @@ function parseData(data){
                 Completed: element.CRM_ATPT_CPTD_CD,
                 Level: element.LAW_CAT_CD,
                 Type: element.OFNS_DESC,
-                KeyCode: parseInt(element.KY_CD),
+                KeyCord: parseInt(element.KY_CD),
                 Boro: element.BORO_NM,
                 Place: element.PREM_TYP_DESC
             }}
