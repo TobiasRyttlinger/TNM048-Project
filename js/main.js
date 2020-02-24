@@ -50,7 +50,7 @@ function parseData(data){
                 Completed: element.CRM_ATPT_CPTD_CD,
                 Level: element.LAW_CAT_CD,
                 Type: element.OFNS_DESC,
-                KeyCode: parseInt(element.KY_CD),
+                KeyCord: parseInt(element.KY_CD),
                 Boro: element.BORO_NM,
                 Place: element.PREM_TYP_DESC
             }}

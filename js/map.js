@@ -1,13 +1,14 @@
 function worldMap(data,numClusters) {
 
 
-    var leaflet_map = L.map('mapid').setView([40.730610, -73.935242], 10);
+    var leaflet_map = L.map('mapid', { zoomControl: false }).setView([40.730610, -73.935242], 10);
     L.tileLayer(map_link()).addTo(leaflet_map);
 
     var svg_map = d3.select(leaflet_map.getPanes()
                .overlayPane).append("svg");
     var g = svg_map.append("g")
                 .attr("class", "leaflet-zoom-hide" );
+
 
     function projectPointsOnMap(x, y){
         if( !isNaN(x) && !isNaN(y)){
@@ -70,8 +71,8 @@ function worldMap(data,numClusters) {
                         var m = d.properties.Reported.month- d.properties.Date_occurance.month;
                         var y = d.properties.Reported.year - d.properties.Date_occurance.year;
                         var total = y*365 + m*30 +day;
-                        
-                        return 'Reported after : ' + total + " days";})                          
+
+                        return 'Reported after : ' + total + " days";})
                     select
                       .select('#completed')
                       .text('The crime was: ' + d.properties.Completed.toLowerCase());
@@ -81,7 +82,7 @@ function worldMap(data,numClusters) {
                     select
                       .select('#type')
                       .text('Type of crime: ' + d.properties.Type.toLowerCase());
-                    
+
 
 
                 })
