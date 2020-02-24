@@ -14,32 +14,43 @@ var svg = d3.select("#parallel")
 .attr("transform",
       "translate(" + margin.left + "," + margin.top + ")");
 
-
-  var dimensions = [
+  var a = d3.max(data.features, function(d) {
+        return d.properties.Boro;
+      });
+  console.log(a)
+  var dimensions = [       
     {
-      Name: "KeyCode", 
-      scale: d3.scaleOrdinal().range([0, height]),
-      type: "number"
-      
-    }, 
-    {
-      Name: "Boro", 
-      scale: d3.scaleOrdinal().range([0, height]),
+      Name: "Type", 
+      scale: d3.scalePoint()
+                .domain(data.features.map(function(d) {return d.properties.Type; }))
+                .range([0, height]),
       type: "string"
       
-    },    
+    },
     {
-      Name: "Boro", 
-      scale: d3.scaleOrdinal().range([0, height]),
+      Name: "Level", 
+      scale: d3.scalePoint()
+                .domain(data.features.map(function(d) {return d.properties.Level; }))
+                .range([0, height]),
       type: "string"
       
     },
     {
       Name: "Boro", 
-      scale: d3.scaleOrdinal().range([0, height]),
+      scale: d3.scalePoint()
+                .domain(data.features.map(function(d) {return d.properties.Boro; }))
+                .range([0, height]),
       type: "string"
       
-    } 
+    }, 
+    {
+      Name: "Completed", 
+      scale: d3.scalePoint()
+            .domain(data.features.map(function(d) {return d.properties.Completed; }))
+            .range([0, height]),
+      type: "number"
+      
+    }, 
   ] 
 
   /*// Extract the list of dimensions we want to keep in the plot. 
@@ -62,25 +73,24 @@ var svg = d3.select("#parallel")
         //return +d.properties[name]; }) )
       .range([height, 0])
   }*/
-  console.log(dimensions)
   // Build the X scale -> it find the best position for each Y axis
-  x = d3.scalePoint()
-    .range([0, width])
-    .padding(1)
-    .domain(dimensions);
+  var x = d3.scalePoint()
+    .domain(dimensions.map(function(d) {return d.Name; }))
+    .range([50, width]);
+
 
   // The path function take a row of the csv as input, and return x and y coordinates of the line to draw for this raw.
   function path(d) {
       return d3.line()(dimensions.map(function(p) { 
-        return [x(p), y[p](d[p])]; }));
+        return [x(p.Name), p.scale(d.properties[p.Name])]; }));
   }
 
   // Draw the lines
   svg
     .selectAll("myPath")
-    .data(data)
+    .data(data.features)
     .enter().append("path")
-    .attr("d",  path)
+    .attr("d",  path) 
     .style("fill", "none")
     .style("stroke", "#69b3a2")
     .style("opacity", 0.5)
@@ -91,9 +101,10 @@ var svg = d3.select("#parallel")
     .data(dimensions).enter()
     .append("g")
     // I translate this element to its right position on the x axis
-    .attr("transform", function(d) { return "translate(" + x(d) + ")"; })
+    .attr("transform", function(d) {return "translate(" +  x(d.Name) +")"; })
     // And I build the axis with the call function
-    .each(function(d) { d3.select(this).call(d3.axisLeft().scale(d.scale)); })
+    .each(function(d) {
+      d3.select(this).call(d3.axisLeft().scale(d.scale)); })
     // Add axis title
     .append("text")
       .style("text-anchor", "middle")
