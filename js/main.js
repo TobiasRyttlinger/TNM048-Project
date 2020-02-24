@@ -22,7 +22,7 @@ d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
     			data.features[i].cluster = d;
     		});
     world_map = new worldMap(data,NumClusters);
-    chart = new chart(data);
+    chart = new parallelCoordinates(data);
 
 });
 
