@@ -65,8 +65,21 @@ function worldMap(data,numClusters) {
                       .text('Date: ' + d.properties.Date_occurance.string+
                             " Time: "+ d.properties.Time_occurance.string);
                     select
+                      .select('#Age')
+                      .text('Age of criminal: ' + d.Age + ' years');
+                      select
+                        .select('#Height')
+                        .text('Height of criminal: ' + d.Length +' cm');
+                    select
                       .select('#report')
-                      .text(function () {return 'Reported after : ' +  d.properties.Reported.days  + " days";})
+                      .text(function () {
+
+                        var day = d.properties.Reported.date -d.properties.Date_occurance.date;
+                        var m = d.properties.Reported.month- d.properties.Date_occurance.month;
+                        var y = d.properties.Reported.year - d.properties.Date_occurance.year;
+                        var total = y*365 + m*30 +day;
+
+                        return 'Reported after : ' + total + " days";})
                     select
                       .select('#completed')
                       .text('The crime was: ' + d.properties.Completed.toLowerCase());
@@ -76,6 +89,7 @@ function worldMap(data,numClusters) {
                     select
                       .select('#type')
                       .text('Type of crime: ' + d.properties.Type.toLowerCase());
+
 
 
 

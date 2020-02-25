@@ -6,25 +6,47 @@ d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
     data = parseData(data);
     console.log(data)
 
+    var Age_array = [];
+    for (var i = 0; i < data.features.length; i++){
+          Age_array[i] =  getRandomInt(18, 82);
+    }
 
-    dbscan_result = DBSCAN().eps(0.015).minPts(20).data(data.features);
+    var Length_array = [];
+    for (var i = 0; i < data.features.length; i++){
+          Length_array[i] =  getRandomInt(140, 210);
+    }
+    Age_array.forEach(function (d, i) {
+          data.features[i].Age = d;
+
+    });
+    Length_array.forEach(function (d, i) {
+          data.features[i].Length = d;
+
+    });
+
+
+    dbscan_result = DBSCAN().eps(6.2).minPts(45).data(data.features);
     var [ClusterAssignment,NumClusters] = dbscan_result();
 
-
-
-
-
-    console.log('Resulting DBSCAN output', ClusterAssignment);
-    console.log('Number of clusters', NumClusters);
 
     var numberOfClusters = [];
     ClusterAssignment.forEach(function (d, i) {
     			data.features[i].cluster = d;
-    		});
+
+  	});
+
+
+    console.log(NumClusters);
     world_map = new worldMap(data,NumClusters);
     chart = new parallelCoordinates(data);
 
 });
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 
 function parseData(data){
@@ -46,7 +68,7 @@ function parseData(data){
                 Longitude: parseFloat(element.Longitude),
                 Date_occurance: dateParse(element.CMPLNT_FR_DT ),
                 Time_occurance: timeP(element.CMPLNT_FR_TM),
-                Reported: reported(element.RPT_DT, element.CMPLNT_FR_DT ),
+                Reported: dateParse(element.RPT_DT),
                 Completed: element.CRM_ATPT_CPTD_CD,
                 Level: element.LAW_CAT_CD,
                 Type: element.OFNS_DESC,
@@ -63,22 +85,7 @@ function parseData(data){
 }
 function dateParse(d){
     var v = d.split('/');
-    return {string: d, date: parseInt(v[0]), month: parseInt(v[1]), year: parseInt(v[2])}; 
-}
-function reported(rep, dateO){
-    rep = dateParse(rep);
-    dateO = dateParse(dateO);
-    var day = rep.date - dateO.date;
-    var m = rep.month-   dateO.month;
-    var y = rep.year - dateO.year;
-    var total = y*365 + m*30 +day;
-    if(total < 0){
-        rep.days = 0;
-    }
-    else{
-        rep.days = total;
-    }
-    return rep;
+    return {string: d, date: parseInt(v[0]), month: parseInt(v[1]), year: parseInt(v[2])}
 }
 function timeP(d){
     var v = d.split(':');
