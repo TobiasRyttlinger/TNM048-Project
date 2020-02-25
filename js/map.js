@@ -1,13 +1,28 @@
 function worldMap(data,numClusters) {
-
-
     var leaflet_map = L.map('mapid', { zoomControl: false }).setView([40.730610, -73.935242], 10);
     L.tileLayer(map_link()).addTo(leaflet_map);
-
+    
     var svg_map = d3.select(leaflet_map.getPanes()
                .overlayPane).append("svg");
     var g = svg_map.append("g")
                 .attr("class", "leaflet-zoom-hide" );
+
+  //-------------choropleth to map -----------
+    L.geoJson(new getData(), {style: choroplethStyle}).addTo(leaflet_map)
+
+    function choroplethStyle(feature) {
+      console.log(feature);
+      return {
+          fillColor: '#636363',
+          weight: 2,
+          opacity: 1,
+          color: 'white',
+          dashArray: '3',
+          fillOpacity: 0.5
+      };
+    }
+  //-------------------------------------------
+
 
 
     function projectPointsOnMap(x, y){
@@ -76,9 +91,6 @@ function worldMap(data,numClusters) {
                     select
                       .select('#type')
                       .text('Type of crime: ' + d.properties.Type.toLowerCase());
-
-
-
                 })
                 .on('mouseout', function(d){
                   d3.select(this)
@@ -108,6 +120,7 @@ function worldMap(data,numClusters) {
                     applyLatLngToLayer(d).x + "," +
                     applyLatLngToLayer(d).y + ")";
             });
+        
     }
 
 
@@ -130,5 +143,4 @@ function worldMap(data,numClusters) {
     function map_link() {
         return "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png";
     }
-
 }
