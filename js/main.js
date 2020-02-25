@@ -46,7 +46,7 @@ function parseData(data){
                 Longitude: parseFloat(element.Longitude),
                 Date_occurance: dateParse(element.CMPLNT_FR_DT ),
                 Time_occurance: timeP(element.CMPLNT_FR_TM),
-                Reported: dateParse(element.RPT_DT),
+                Reported: reported(element.RPT_DT, element.CMPLNT_FR_DT ),
                 Completed: element.CRM_ATPT_CPTD_CD,
                 Level: element.LAW_CAT_CD,
                 Type: element.OFNS_DESC,
@@ -63,7 +63,22 @@ function parseData(data){
 }
 function dateParse(d){
     var v = d.split('/');
-    return {string: d, date: parseInt(v[0]), month: parseInt(v[1]), year: parseInt(v[2])}
+    return {string: d, date: parseInt(v[0]), month: parseInt(v[1]), year: parseInt(v[2])}; 
+}
+function reported(rep, dateO){
+    rep = dateParse(rep);
+    dateO = dateParse(dateO);
+    var day = rep.date - dateO.date;
+    var m = rep.month-   dateO.month;
+    var y = rep.year - dateO.year;
+    var total = y*365 + m*30 +day;
+    if(total < 0){
+        rep.days = 0;
+    }
+    else{
+        rep.days = total;
+    }
+    return rep;
 }
 function timeP(d){
     var v = d.split(':');

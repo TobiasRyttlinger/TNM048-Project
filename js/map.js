@@ -66,13 +66,7 @@ function worldMap(data,numClusters) {
                             " Time: "+ d.properties.Time_occurance.string);
                     select
                       .select('#report')
-                      .text(function () {
-                        var day = d.properties.Reported.date -d.properties.Date_occurance.date;
-                        var m = d.properties.Reported.month- d.properties.Date_occurance.month;
-                        var y = d.properties.Reported.year - d.properties.Date_occurance.year;
-                        var total = y*365 + m*30 +day;
-
-                        return 'Reported after : ' + total + " days";})
+                      .text(function () {return 'Reported after : ' +  d.properties.Reported.days  + " days";})
                     select
                       .select('#completed')
                       .text('The crime was: ' + d.properties.Completed.toLowerCase());
