@@ -3,27 +3,29 @@ var world_map,dbscanner, chart
 
 
 d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
+    //-------parse Data------------
     data = parseData(data);
     console.log(data)
 
-    var Age_array = [];
+    //Generating numerical data
+    //var Age_array = [];
     for (var i = 0; i < data.features.length; i++){
-          Age_array[i] =  getRandomInt(18, 82);
-    }
+        data.features[i].Age =  getRandomInt(18, 82);
+    } //data.features[i].properties.Age...
 
-    var Length_array = [];
+    //var Length_array = [];
     for (var i = 0; i < data.features.length; i++){
-          Length_array[i] =  getRandomInt(140, 210);
+        data.features[i].Length =  getRandomInt(140, 210);
     }
-    Age_array.forEach(function (d, i) {
+    /*Age_array.forEach(function (d, i) {
           data.features[i].Age = d;
 
     });
     Length_array.forEach(function (d, i) {
           data.features[i].Length = d;
 
-    });
-
+    });*/
+    //----------------------------------------
 
     dbscan_result = DBSCAN().eps(6.2).minPts(45).data(data.features);
     var [ClusterAssignment,NumClusters] = dbscan_result();
