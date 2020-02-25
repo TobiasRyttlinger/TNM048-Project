@@ -9,8 +9,7 @@
 		var distance = euclidean_distance;
 
 		function euclidean_distance(point1,point2){
-
-				return Math.sqrt(Math.pow((point1.Latitude - point2.Latitude), 2) + Math.pow((point1.Longitude - point2.Longitude), 2));
+				return Math.sqrt(Math.pow((point1.properties.Latitude - point2.properties.Latitude), 2) + Math.pow((point1.properties.Longitude - point2.properties.Longitude), 2)+ Math.pow((point1.Age - point2.Age), 2)+ Math.pow((point1.Length - point2.Length), 2));
 		};
 
 		function getNeighbours(point_index){
@@ -21,8 +20,7 @@
 					if(point_index === i){
 						continue;
 					}
-
-					if(distance(data[i].properties,d.properties) <= eps){
+					if(distance(data[i],d) <= eps){
 						neighbours.push(i);
 					}
 		}

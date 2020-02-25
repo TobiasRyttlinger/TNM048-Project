@@ -11,7 +11,6 @@ function worldMap(data,numClusters) {
     L.geoJson(new getData(), {style: choroplethStyle}).addTo(leaflet_map)
 
     function choroplethStyle(feature) {
-      console.log(feature);
       return {
           fillColor: '#636363',
           weight: 2,
@@ -79,6 +78,12 @@ function worldMap(data,numClusters) {
                       .select('#date')
                       .text('Date: ' + d.properties.Date_occurance.string+
                             " Time: "+ d.properties.Time_occurance.string);
+                    select
+                      .select('#Age')
+                      .text('Age of criminal: ' + d.Age + ' years');
+                      select
+                        .select('#Height')
+                        .text('Height of criminal: ' + d.Length +' cm');
                     select
                       .select('#report')
                       .text(function () {return 'Reported after : ' +  d.properties.Reported.days  + " days";})
