@@ -6,20 +6,57 @@ function worldMap(data,numClusters) {
                .overlayPane).append("svg");
     var g = svg_map.append("g")
                 .attr("class", "leaflet-zoom-hide" );
+  
+    var cValue = function(d) { return d;};
+    var scaleQuantColor = d3.scaleQuantile()
+    .range(["#111111","#1f78b4","#b2df8a","#33a02c","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6","#6a3d9a","#ffff99","#b15928"])
+    .domain([0,12]);
 
+               
   //-------------choropleth to map -----------
-    L.geoJson(new getData(), {style: choroplethStyle}).addTo(leaflet_map)
+  //Count the amount of crimes in each boro
+  //place it in topoData
+  var topoData = new getData();
+  var m =  b = x = s = q = 0;
+  countCrime(data)  
+  function countCrime(data){
+    data.features.forEach(element => {
+        if(element.properties.Boro == "MANHATTAN")++m
+        if(element.properties.Boro == "BROOKLYN")++b
+        if(element.properties.Boro == "BRONX")++x
+        if(element.properties.Boro == "STATEN ISLAND")++s
+        if(element.properties.Boro == "QUEENS")++q
+      });
+    topoData.features.forEach(element => {
+      if(element.properties.BoroName == "Manhattan") element.properties.amoutOfCrime =  m;
+      if(element.properties.BoroName == "Brooklyn")element.properties.amoutOfCrime =  b;
+      if(element.properties.BoroName == "Bronx")element.properties.amoutOfCrime =  x;
+      if(element.properties.BoroName == "Staten Island")element.properties.amoutOfCrime =  s;
+      if(element.properties.BoroName== "Queens")element.properties.amoutOfCrime =  q;
+    })
+  }  
+  //color depending on crime
+  var boroColor = d3.scaleLinear()
+      .domain([0, 500])
+      .range(['yellow', 'red']);
+  //style of choropleth
+  function choroplethStyle(d) {
+    return {
+        fillColor: boroColor(d.properties.amoutOfCrime), //'#636363',
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.5,
+        z:-1
+        
+    };
+  }
+  
+  //Add choropleth to map
+  L.geoJson(topoData, {style: choroplethStyle}).addTo(leaflet_map)
 
-    function choroplethStyle(feature) {
-      return {
-          fillColor: '#636363',
-          weight: 2,
-          opacity: 1,
-          color: 'white',
-          dashArray: '3',
-          fillOpacity: 0.5
-      };
-    }
+  
   //-------------------------------------------
 
 
@@ -46,17 +83,6 @@ function worldMap(data,numClusters) {
 
         }
     }
-
-
-
-     var cValue = function(d) { return d;};
-     var scaleQuantColor = d3.scaleQuantile()
-
-    .range(["#111111","#1f78b4","#b2df8a","#33a02c","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6","#6a3d9a","#ffff99","#b15928"])
-    .domain([0,12]);
-
-
-
     var feature = g.selectAll("circle")
                 .data(data.features)
                 .enter()
