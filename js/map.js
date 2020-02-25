@@ -52,10 +52,41 @@ function worldMap(data,numClusters) {
         
     };
   }
-  
-  //Add choropleth to map
-  L.geoJson(topoData, {style: choroplethStyle}).addTo(leaflet_map)
 
+  function highlightFeature(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+  }
+  function resetHighlight(e) {
+    geoJ.resetStyle(e.target);
+  }
+  function zoomToFeature(e) {
+    leaflet_map.fitBounds(e.target.getBounds());
+  }
+  function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: zoomToFeature
+    });
+}
+
+  //Add choropleth to map
+  var geoJ = L.geoJson(topoData, {
+              style: choroplethStyle,
+              onEachFeature: onEachFeature
+            }).addTo(leaflet_map)
+ 
   
   //-------------------------------------------
 
