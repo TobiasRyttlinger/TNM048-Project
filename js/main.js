@@ -29,9 +29,14 @@ d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
     var [ClusterAssignment,NumClusters] = dbscan_result();
 
 
+    //console.log('Resulting DBSCAN output', ClusterAssignment);
+    //console.log('Number of clusters', NumClusters);
+
+
     var numberOfClusters = [];
     ClusterAssignment.forEach(function (d, i) {
     			data.features[i].cluster = d;
+
 
   	});
 
@@ -39,6 +44,11 @@ d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
     console.log(NumClusters);
     world_map = new worldMap(data,NumClusters);
     chart = new parallelCoordinates(data);
+
+    		});
+    //world_map = new worldMap(data,NumClusters);
+    chart = new parallelSets(data);
+
 
 });
 
@@ -72,7 +82,7 @@ function parseData(data){
                 Completed: element.CRM_ATPT_CPTD_CD,
                 Level: element.LAW_CAT_CD,
                 Type: element.OFNS_DESC,
-                KeyCord: parseInt(element.KY_CD),
+                KeyCode: parseInt(element.KY_CD),
                 Boro: element.BORO_NM,
                 Place: element.PREM_TYP_DESC
             }}
