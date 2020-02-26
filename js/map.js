@@ -87,9 +87,10 @@ function worldMap(data,numClusters) {
   };
 
   function highlightFeature(d) {
-      var layer = d.target;
+    var select = d3.select('#infobox')
+  
 
-
+    var layer = d.target;
     layer.setStyle({
         weight: 3,
         color: 'white',
@@ -114,7 +115,6 @@ function worldMap(data,numClusters) {
   }
 
   function onEachFeature(feature, layer) {
-    console.log("");
     layer.on({
       mouseover: highlightFeature,
       mouseout: resetHighlight,
