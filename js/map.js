@@ -1,24 +1,28 @@
+
 function worldMap(data,numClusters) {
+//
+
     var leaflet_map = L.map('mapid', { zoomControl: false }).setView([40.730610, -73.935242], 10);
     L.tileLayer(map_link()).addTo(leaflet_map);
-    
+
     var svg_map = d3.select(leaflet_map.getPanes()
                .overlayPane).append("svg");
     var g = svg_map.append("g")
                 .attr("class", "leaflet-zoom-hide" );
-  
+
+
     var cValue = function(d) { return d;};
     var scaleQuantColor = d3.scaleQuantile()
     .range(["#111111","#1f78b4","#b2df8a","#33a02c","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6","#6a3d9a","#ffff99","#b15928"])
     .domain([0,12]);
 
-               
   //-------------choropleth to map -----------
   //Count the amount of crimes in each boro
   //place it in topoData
   var topoData = new getData();
   var m =  b = x = s = q = 0;
-  countCrime(data)  
+  countCrime(data)
+
   function countCrime(data){
     data.features.forEach(element => {
         if(element.properties.Boro == "MANHATTAN")++m
@@ -33,30 +37,61 @@ function worldMap(data,numClusters) {
       if(element.properties.BoroName == "Bronx")element.properties.amoutOfCrime =  x;
       if(element.properties.BoroName == "Staten Island")element.properties.amoutOfCrime =  s;
       if(element.properties.BoroName== "Queens")element.properties.amoutOfCrime =  q;
+
+
     })
-  }  
+
+  }
+
   //color depending on crime
   var boroColor = d3.scaleLinear()
       .domain([0, 500])
-      .range(['yellow', 'red']);
+      .range(['white', 'red']);
   //style of choropleth
+
+
+
+    /*Legend specific*/
+  var legend = L.control({ position: "bottomright" });
+
+  legend.onAdd = function(leaflet_map) {
+  var div = L.DomUtil.create("div", "legend");
+
+  div.innerHTML += '<i style="background: #477AC2"></i><span>'+m+' Crimes</span><br>';
+  div.innerHTML += '<i style="background: #448D40"></i><span>'+b+' Crimes</span><br>';
+  div.innerHTML += '<i style="background: #E6E696"></i><span>'+x+' Crimes</span><br>';
+  div.innerHTML += '<i style="background: #E8E6E0"></i><span>'+s+' Crimes</span><br>';
+  div.innerHTML += '<i style="background: #FFFFFF"></i><span>'+q+' Crimes</span><br>';
+
+
+
+
+  return div;
+  };
+
+  legend.addTo(leaflet_map);
+
+
   function choroplethStyle(d) {
     return {
         fillColor: boroColor(d.properties.amoutOfCrime), //'#636363',
         weight: 2,
         opacity: 1,
-        color: 'white',
-        dashArray: '3',
-        fillOpacity: 0.5,
+        color: 'black',
+        dashArray: '1',
+        fillOpacity: 1,
         z:-1
-        
+
+
+
     };
+    console.log(fillColor);
   }
-  
+
   //Add choropleth to map
   L.geoJson(topoData, {style: choroplethStyle}).addTo(leaflet_map)
 
-  
+
   //-------------------------------------------
 
 
@@ -151,7 +186,7 @@ function worldMap(data,numClusters) {
                     applyLatLngToLayer(d).x + "," +
                     applyLatLngToLayer(d).y + ")";
             });
-        
+
     }
 
 

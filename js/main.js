@@ -2,6 +2,7 @@
 var world_map,dbscanner, chart
 
 
+
 d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
     //-------parse Data------------
     data = parseData(data);
@@ -43,8 +44,8 @@ d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
   	});
 
 
-    console.log(NumClusters);
-    
+    //console.log(NumClusters);
+
     world_map = new worldMap(data,NumClusters);
     chart = new parallelSets(data);
     		});
