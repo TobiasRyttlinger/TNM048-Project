@@ -1,8 +1,15 @@
 var width = 975;
 var height = 720;
-var keys = ["Completed", "Level", "Boro", "Type"];
+var keys = ["Completed", "Level","Boro"];
 
-function ParallelSets(data){
+function ParallelSets(data,numClusters){
+
+
+
+  var cValue = function(d) { return d;};
+  var scaleQuantColor = d3.scaleQuantile()
+  .range(["#111111","#1f78b4","#b2df8a","#33a02c","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6","#6a3d9a","#ffff99","#b15928"])
+  .domain([0,12]);
 
   var sankey = d3.sankey()
   .nodeSort(null)
@@ -26,7 +33,7 @@ function ParallelSets(data){
       if (graph.nodeByKey.has(key)){
         continue;
       }
-      const node = {name: d.properties[k]};
+      const node = {name: d.properties[k], cluster: d.cluster};
       graph.nodes.push(node);
       graph.nodeByKey.set(key, node);
       graph.indexByKey.set(key, ++graph.index);
@@ -41,10 +48,12 @@ function ParallelSets(data){
     const linkByKey = new Map;
     for (const d of data) {
       const names = prefix.map(k => d.properties[k]);
+      const cluster= d.properties.cluster;
+
       const key = JSON.stringify(names);
       let link = linkByKey.get(key);
       const value = 1;
-      
+
       if (link) {
         link.value += value;
         continue;
@@ -53,17 +62,15 @@ function ParallelSets(data){
       link = {
         source: graph.indexByKey.get(JSON.stringify([a, d.properties[a]])),
         target: graph.indexByKey.get(JSON.stringify([b, d.properties[b]])),
+        cluster,
         names,
         value
       };
-      console.log(link);
       graph.links.push(link);
       linkByKey.set(key, link);
 
     }
   }
-
-  color = d3.scaleOrdinal(["Completed"], ["#da4f81"]).unknown("#ccc")
 
   console.log(graph);
 
@@ -86,8 +93,8 @@ function ParallelSets(data){
   .append("rect")
   .attr("x", d => d.x0)
   .attr("y", d => d.y0)
-  .attr("height", d => d.y1 - d.y0)
-  .attr("width", d => d.x1 - d.x0)
+  .attr("height", d => d.y1 - d.y0 + 7 )
+  .attr("width", d => d.x1 - d.x0 )
   .append("title")
   .text(d => `${d.name}`);
 
@@ -98,11 +105,20 @@ function ParallelSets(data){
   .enter()
   .append("path")
   .attr("d", d3.sankeyLinkHorizontal())
-  .attr("stroke", d => color(d.names[1]))
-  .attr("stroke-width", d => d.width)
+  .attr("stroke-width", d => d.width+2)
+  .attr("stroke",  function(d){
+    if(d.cluster === 0){
+      return "#ccc";
+    }
+  return scaleQuantColor(cValue(d.cluster));
+  })
   .style("mix-blend-mode", "multiply")
+  .on('mouseover', handleMouseOver)
+  .on('mouseout', handleMouseOut)
   .append("title")
   .text(d => `${d.names.join(" → ")}\n${d.value.toLocaleString()}`);
+
+
 
   svg.append("g")
   .style("font", "10px sans-serif")
@@ -118,6 +134,15 @@ function ParallelSets(data){
   .append("tspan")
   .attr("fill-opacity", 0.7)
   .text(d => ` ${d.value.toLocaleString()}`);
+
+  function handleMouseOver(d, i) {  // Add interactivity
+
+        }
+
+        function handleMouseOut(d, i) {  // Add interactivity
+
+
+              }
 
   return svg.node();
 }

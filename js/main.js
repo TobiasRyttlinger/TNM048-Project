@@ -9,14 +9,17 @@ d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
     console.log(data)
 
     //Generating numerical data
-    //var Age_array = [];
+
     for (var i = 0; i < data.features.length; i++){
-        data.features[i].Age =  getRandomInt(18, 82);
+
+            data.features[i].properties.Age =  getRandomInt(18, 65);
+
+
     } //data.features[i].properties.Age...
 
     //var Length_array = [];
     for (var i = 0; i < data.features.length; i++){
-        data.features[i].Length =  getRandomInt(140, 210);
+        data.features[i].properties.Length =  getRandomInt(140, 210);
     }
     /*Age_array.forEach(function (d, i) {
           data.features[i].Age = d;
@@ -28,7 +31,7 @@ d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
     });*/
     //----------------------------------------
 
-    dbscan_result = DBSCAN().eps(6.2).minPts(45).data(data.features);
+    dbscan_result = DBSCAN().eps(5).minPts(30).data(data.features);
     var [ClusterAssignment,NumClusters] = dbscan_result();
 
 
@@ -38,9 +41,7 @@ d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
 
     var numberOfClusters = [];
     ClusterAssignment.forEach(function (d, i) {
-    			data.features[i].cluster = d;
-
-
+    			data.features[i].properties.cluster = d;
   	});
 
 
@@ -48,7 +49,7 @@ d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
     console.log(NumClusters);
 
      world_map = new worldMap(data,NumClusters);
-     chart = new ParallelSets(data.features);
+     chart = new ParallelSets(data.features,NumClusters);
 
     		});
 
@@ -56,7 +57,8 @@ d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    var rand =Math.floor(Math.random() * (max - min + 1)) + min;
+    return rand;
 }
 
 

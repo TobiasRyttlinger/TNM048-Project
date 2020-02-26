@@ -9,7 +9,7 @@
 		var distance = euclidean_distance;
 
 		function euclidean_distance(point1,point2){
-				return Math.sqrt(Math.pow((point1.properties.Latitude - point2.properties.Latitude), 2) + Math.pow((point1.properties.Longitude - point2.properties.Longitude), 2)+ Math.pow((point1.Age - point2.Age), 2)+ Math.pow((point1.Length - point2.Length), 2));
+				return Math.sqrt(Math.pow((point1.properties.Latitude - point2.properties.Latitude), 2) + Math.pow((point1.properties.Longitude - point2.properties.Longitude), 2)+ Math.pow((point1.properties.Age - point2.properties.Age), 2)+ Math.pow((point1.properties.Length - point2.properties.Length), 2));
 		};
 
 		function getNeighbours(point_index){

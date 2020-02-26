@@ -88,7 +88,7 @@ function worldMap(data,numClusters) {
 
   function highlightFeature(d) {
     var select = d3.select('#infobox')
-  
+
 
     var layer = d.target;
     layer.setStyle({
@@ -181,10 +181,10 @@ function worldMap(data,numClusters) {
     " Time: "+ d.properties.Time_occurance.string);
     select
     .select('#Age')
-    .text('Age of criminal: ' + d.Age + ' years');
+    .text('Age of criminal: ' + d.properties.Age + ' years');
     select
     .select('#Height')
-    .text('Height of criminal: ' + d.Length +' cm');
+    .text('Height of criminal: ' + d.properties.Length +' cm');
     select
     .select('#report')
     .text(function () {return 'Reported after : ' +  d.properties.Reported.days  + " days";})
