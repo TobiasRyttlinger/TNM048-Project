@@ -1,11 +1,4 @@
-/**
- *
-    Author: Kahin Akram
-    Date: Jan 24, 2020
-    TNM048 Lab 1 - Visual Information-Seeking Mantra
-    Css file
- *
-*/
+
 
 .zoom {
   cursor: move;
@@ -16,17 +9,16 @@
     pointer-events: none;
 }
 #mapid {
-  position: fixed;
-  height:100%;
-   width: 100%;
-   left:0px;
+  position: relative;
+  height:500px;
+  overflow:auto;
 
 }
 
 .card{
   color:white;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-pointer-events: none;
+  pointer-events: none;
   background-color: transparent !important;
 }
 
@@ -40,9 +32,9 @@ hr{
 
 .navbar{
   color:white;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   background-color: transparent !important;
-pointer-events: none;
+  pointer-events: none;
 
 }
 
@@ -53,8 +45,6 @@ pointer-events: none;
   font: 14px Arial, Helvetica, sans-serif;
   background: white;
   background: rgba(255, 255, 255, 0.8);
-  /*box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);*/
-  /*border-radius: 5px;*/
   line-height: 24px;
   color: #555;
 
