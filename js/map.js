@@ -60,15 +60,17 @@ function worldMap(data,numClusters) {
   var legend = L.control({ position: "bottomright" });
 
   legend.onAdd = function(leaflet_map) {
-    var div = L.DomUtil.create("div", "legend");
-    div.innerHTML += '<span>'+m+' Crimes</span><br>';
-    div.innerHTML += '<i style="background:'+boroColor(m)+'"></i><span>'+m+' Crimes</span><br>';
-    div.innerHTML += '<i style="background: '+boroColor(b)+'"></i><span>'+b+' Crimes</span><br>';
-    div.innerHTML += '<i style="background: '+boroColor(x)+'"></i><span>'+x+' Crimes</span><br>';
-    div.innerHTML += '<i style="background: '+boroColor(s)+'"></i><span>'+s+' Crimes</span><br>';
-    div.innerHTML += '<i style="background: '+boroColor(q)+'"></i><span>'+q+' Crimes</span><br>';
 
-    return div;
+  var div = L.DomUtil.create("div", "legend");
+  div.innerHTML += '<span> Crime rate</span><br>';
+  div.innerHTML += '<i style="background:'+boroColor(m)+'"></i><span>'+m+' Crimes</span><br>';
+  div.innerHTML += '<i style="background: '+boroColor(b)+'"></i><span>'+b+' Crimes</span><br>';
+  div.innerHTML += '<i style="background: '+boroColor(x)+'"></i><span>'+x+' Crimes</span><br>';
+  div.innerHTML += '<i style="background: '+boroColor(s)+'"></i><span>'+s+' Crimes</span><br>';
+  div.innerHTML += '<i style="background: '+boroColor(q)+'"></i><span>'+q+' Crimes</span><br>';
+
+  return div;
+
   };
 
   function choroplethStyle(d) {
@@ -87,12 +89,14 @@ function worldMap(data,numClusters) {
   function highlightFeature(d) {
       var layer = d.target;
 
-      layer.setStyle({
-          weight: 5,
-          color: '#666',
-          dashArray: '',
-          fillOpacity: 0.7
-      });
+
+    layer.setStyle({
+        weight: 3,
+        color: 'white',
+        dashArray: '',
+        fillOpacity: 0.1
+    });
+
 
       if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
           layer.bringToFront();
