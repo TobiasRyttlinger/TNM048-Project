@@ -52,7 +52,7 @@ function worldMap(data,numClusters) {
 
   //color depending on crime
   var boroColor = d3.scaleLinear()
-      .domain([0, 500])
+      .domain([0, 409])
       .range(['white', 'red']);
   //style of choropleth
 
@@ -63,12 +63,12 @@ function worldMap(data,numClusters) {
 
   legend.onAdd = function(leaflet_map) {
   var div = L.DomUtil.create("div", "legend");
-
-  div.innerHTML += '<i style="background: #477AC2"></i><span>'+m+' Crimes</span><br>';
-  div.innerHTML += '<i style="background: #448D40"></i><span>'+b+' Crimes</span><br>';
-  div.innerHTML += '<i style="background: #E6E696"></i><span>'+x+' Crimes</span><br>';
-  div.innerHTML += '<i style="background: #E8E6E0"></i><span>'+s+' Crimes</span><br>';
-  div.innerHTML += '<i style="background: #FFFFFF"></i><span>'+q+' Crimes</span><br>';
+  div.innerHTML += '<span>'+m+' Crimes</span><br>';
+  div.innerHTML += '<i style="background:'+boroColor(m)+'"></i><span>'+m+' Crimes</span><br>';
+  div.innerHTML += '<i style="background: '+boroColor(b)+'"></i><span>'+b+' Crimes</span><br>';
+  div.innerHTML += '<i style="background: '+boroColor(x)+'"></i><span>'+x+' Crimes</span><br>';
+  div.innerHTML += '<i style="background: '+boroColor(s)+'"></i><span>'+s+' Crimes</span><br>';
+  div.innerHTML += '<i style="background: '+boroColor(q)+'"></i><span>'+q+' Crimes</span><br>';
 
 
 
