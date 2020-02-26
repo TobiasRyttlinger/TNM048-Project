@@ -61,7 +61,7 @@ function worldMap(data,numClusters) {
 
   legend.onAdd = function(leaflet_map) {
   var div = L.DomUtil.create("div", "legend");
-  div.innerHTML += '<span>'+m+' Crimes</span><br>';
+  div.innerHTML += '<span> Crime rate</span><br>';
   div.innerHTML += '<i style="background:'+boroColor(m)+'"></i><span>'+m+' Crimes</span><br>';
   div.innerHTML += '<i style="background: '+boroColor(b)+'"></i><span>'+b+' Crimes</span><br>';
   div.innerHTML += '<i style="background: '+boroColor(x)+'"></i><span>'+x+' Crimes</span><br>';
@@ -90,7 +90,7 @@ function worldMap(data,numClusters) {
 
     layer.setStyle({
         weight: 3,
-        color: 'black',
+        color: 'white',
         dashArray: '',
         fillOpacity: 0.1
     });
