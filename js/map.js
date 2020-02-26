@@ -56,8 +56,6 @@ function worldMap(data,numClusters) {
       .range(['white', 'red']);
   //style of choropleth
 
-
-
     /*Legend specific*/
   var legend = L.control({ position: "bottomright" });
 
@@ -70,25 +68,18 @@ function worldMap(data,numClusters) {
   div.innerHTML += '<i style="background: '+boroColor(s)+'"></i><span>'+s+' Crimes</span><br>';
   div.innerHTML += '<i style="background: '+boroColor(q)+'"></i><span>'+q+' Crimes</span><br>';
 
-
-
-
   return div;
   };
-
-  legend.addTo(leaflet_map);
-
 
   function choroplethStyle(d) {
     return {
 
         fillColor: boroColor(d.properties.amoutOfCrime), //'#636363',
-        weight: 2,
+        weight: 1.5,
         opacity: 1,
         color: 'black',
         dashArray: '1',
-
-        fillOpacity: 1,
+        fillOpacity: 0.5,
         z:-1
     };
   }
@@ -113,15 +104,9 @@ function resetHighlight(d) {
 }
 
 var geojson;
-// ... our listeners
 geojson =  L.geoJson(topoData, {style: choroplethStyle}).addTo(leaflet_map)
 
 function zoomToFeature(d) {
-    var layer = d.target;
-    layer.setStyle({
-        fillOpacity: 0
-    });
-
     leaflet_map.fitBounds(d.target.getBounds());
 }
 
@@ -143,7 +128,7 @@ geojson = L.geoJson(topoData, {
   //Add choropleth to map
   L.geoJson(topoData, {style: choroplethStyle}).addTo(leaflet_map)
 
-
+  legend.addTo(leaflet_map);
 
   //-------------------------------------------
 
