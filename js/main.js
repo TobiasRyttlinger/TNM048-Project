@@ -90,10 +90,10 @@ function parseData(data){
                 KeyCode: parseInt(element.KY_CD),
                 Boro: element.BORO_NM,
                 Place: element.PREM_TYP_DESC,
-                Age_susp: element.SUSP_AGE_GROUP,
+                Age_susp: ageParse(element.SUSP_AGE_GROUP),
                 Race_susp: element.SUSP_RACE, 
                 Sex_susp: element.SUSP_SEX, 
-                Age_vic: element.VIC_AGE_GROUP,
+                Age_vic: ageParse(element.VIC_AGE_GROUP),
                 Race_vic: element.VIC_RACE, 
                 Sex_vic: element.VIC_SEX
             }}
@@ -108,6 +108,13 @@ function parseData(data){
 function dateParse(d){
     var v = d.split('/');
     return {string: d, date: parseInt(v[0]), month: parseInt(v[1]), year: parseInt(v[2])}
+}
+function ageParse(d){
+    if(d == "<18")return 18
+    if(d == "18-24")return 21
+    if(d == "25-44")return 35
+    if(d == "45-64")return 55
+    if(d == "65+")return 65
 }
 
 function reported(rep, dateO){
