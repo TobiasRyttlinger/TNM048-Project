@@ -8,38 +8,23 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='libs/css/index.css') }}" />
   <link rel="stylesheet" href="{{ url_for('static', filename='libs/bootstrap/css/bootstrap.min.css') }}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.css" />
---><script src="https://d3js.org/colorbrewer.v1.min.js"></script>
+-->
+
 <link rel="stylesheet" href="libs/css/index.css" />
 <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css" />
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.css" />
-<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css' rel='stylesheet' />
-<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css' rel='stylesheet' />
-<script src="https://mbostock.github.com/d3/d3.js?2.5.0"></script>
-<script src="https://www.jasondavies.com/parallel-sets/d3.parsets.js"></script>
-<script src="https://www.jasondavies.com/parallel-sets/highlight.min.js"></script>
-
-
 
 </head>
 
-<body class="container-fluid">
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
 
-
-  <div id="vis"><noscript><img src="parsets.png"></noscript></div>
-  <div class="options">
-    <span class="curves"><label for="curved"><input type="checkbox" id="curved" onchange="curves.call(this)"> Curves?</label></span>
-  </div>
-
-
-  <div id="mapid"></div>
-
-  <nav class="navbar">
-    <h2>New york crime visualization</h2>
-  </nav>
-    <div class="row float-right">
-          <div class="card text-center">
-            <div class=" card-header">
+        <div id="mapid">
+          <div class="card text-center float-right">
+            <div class="card-header">
               <h2>New York crime data</h2>
               <hr></hr>
               <div id="infobox">
@@ -51,12 +36,20 @@
                 <div id="completed"> </div>
                 <div id="place"> </div>
                 <div id="type"> </div>
+              </div>
             </div>
+
           </div>
         </div>
       </div>
     </div>
+    <div class="row mt-5">
+      <div class="col-12">
+        <div id="vis"></div>
+      </div>
+    </div>
   </div>
+
 </body>
 
 
@@ -64,12 +57,22 @@
 <script type=text/javascript src="libs/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="libs/d3/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/leaflet-src.js"></script>
-<!-- our scripts -->
 
+<!--New stuff for parralell sets-->
+<script src="https://unpkg.com/d3-array@1"></script>
+<script src="https://unpkg.com/d3-collection@1"></script>
+<script src="https://unpkg.com/d3-path@1"></script>
+<script src="https://unpkg.com/d3-shape@1"></script>
+<script src="https://unpkg.com/d3-sankey@0"></script>
+
+<!-- our scripts -->
 <script type="text/javascript" src="js/DBSCAN.js"></script>
 <script src="js/map.js"></script>
 <script src="js/main.js"></script>
 <script src="js/chart.js"></script>
 <script src="js/choropleth.js"></script>
+
+
+
 
 </html>

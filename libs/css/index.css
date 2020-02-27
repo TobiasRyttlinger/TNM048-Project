@@ -1,11 +1,4 @@
-/**
- *
-    Author: Kahin Akram
-    Date: Jan 24, 2020
-    TNM048 Lab 1 - Visual Information-Seeking Mantra
-    Css file
- *
-*/
+
 
 .zoom {
   cursor: move;
@@ -16,16 +9,16 @@
     pointer-events: none;
 }
 #mapid {
-  position: fixed;
-  height:100%;
-   width: 100%;
+  position: relative;
+  height:500px;
+  overflow:auto;
 
 }
 
 .card{
   color:white;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-pointer-events: none;
+  pointer-events: none;
   background-color: transparent !important;
 }
 
@@ -39,8 +32,46 @@ hr{
 
 .navbar{
   color:white;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   background-color: transparent !important;
-pointer-events: none;
+  pointer-events: none;
 
+}
+
+
+/*Legend specific*/
+.legend {
+  padding: 6px 8px;
+  font: 14px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255, 255, 255, 0.8);
+  line-height: 24px;
+  color: #555;
+
+  left: -20px;
+}
+.legend h4 {
+  text-align: center;
+  font-size: 16px;
+  margin: 2px 12px 8px;
+  color: #777;
+}
+
+.legend span {
+  position: relative;
+  bottom: 3px;
+
+}
+
+.legend i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin: 0 8px 0 0;
+  opacity: 0.7;
+}
+
+.legend i.icon {
+  background-size: 18px;
+  background-color: rgba(255, 255, 255, 1);
 }
