@@ -96,8 +96,8 @@ function worldMap(data,numClusters) {
       this._div = L.DomUtil.create("div", "buttons");
 
 
-        this._div.innerHTML += '<button id="switchButton1" type="button" class="btn btn-outline-light"> Heatmap<button><br>';
-        this._div.innerHTML += '<button id="switchButton2" type="button" class="btn btn-outline-light"> Scatter plot<button><br>';
+        this._div.innerHTML += '<button id="switchButton1"  class="btn btn-outline-light mr-2">Scatter plot </button>';
+        this._div.innerHTML += '<button id="switchButton2"  class="btn btn-outline-light">Heatmap </button>';
 
 
   return this._div;
