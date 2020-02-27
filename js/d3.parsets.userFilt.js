@@ -6,7 +6,7 @@ var userFilt = {};
 // //////// array of possible dimensions the user could chose to visualize  /////////////////////////
 userFilt["dimension_options"] = ["Completed","Age_vic","Sex_vic","Race_vic","Place","Boro"];
 // //////// array of dimensions, the user has chosen to visualize or are given as starting example //////////////////////
-userFilt["selected_options"] = ["Completed","Boro","Age_vic"];
+userFilt["selected_options"] = ["Boro","Age_vic", "Level"];
 // ///// object consisting of dimension name: value name key:value pairs - these limit the input CSV values to only rows that have these dimension:value pairs.
 // ////////////items are added this like, key:[values] or dimension_name:[dimension_item_1, dimension_item_2] ////////////////////////////////////////////////////////////////////////////
 userFilt["limitations"] ={};

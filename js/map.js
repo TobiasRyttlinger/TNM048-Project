@@ -8,7 +8,8 @@ function worldMap(data,numClusters) {
   var svg_map = d3.select(leaflet_map.getPanes()
   .overlayPane).append("svg");
   var g = svg_map.append("g")
-  .attr("class", "leaflet-zoom-hide" );
+  .attr("class", "leaflet-zoom-hide" )
+  .attr("id", "svgId");
 
 
 
@@ -198,7 +199,7 @@ legend.addTo(leaflet_map);
   }
 
 
-  
+
   var feature = g.selectAll("circle")
   .data(data.features)
   .enter()
@@ -207,7 +208,7 @@ legend.addTo(leaflet_map);
   .style("opacity", 0.8)
   .attr('r', 5)
   .style("fill", function(d) {
-    return scaleQuantColor(cValue(d.cluster));
+    return scaleQuantColor(cValue(d.properties.cluster));
   })
   .on('mouseover', function(d){
     d3.select(this)
@@ -289,11 +290,18 @@ legend.addTo(leaflet_map);
   document.getElementById('switchButton1').onclick = function() {
     legend.remove();
     geoJ.remove();
+    document.getElementById("info").style.display = "block";
+    document.getElementById("svgId").style.display = "block";
+
+
   }
 
   document.getElementById('switchButton2').onclick = function() {
     legend.addTo(leaflet_map);
     geoJ.addTo(leaflet_map);
+    document.getElementById("info").style.display = "none";
+    document.getElementById("svgId").style.display = "none";
+
   }
 
 
