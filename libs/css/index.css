@@ -76,3 +76,15 @@ hr{
   background-size: 18px;
   background-color: rgba(255, 255, 255, 1);
 }
+
+#info{
+  display: none;
+}
+
+#svgId{
+  display: none;
+}
+
+.buttons{
+  background-color: inherit;
+}

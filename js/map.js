@@ -8,7 +8,8 @@ function worldMap(data,numClusters) {
   var svg_map = d3.select(leaflet_map.getPanes()
   .overlayPane).append("svg");
   var g = svg_map.append("g")
-  .attr("class", "leaflet-zoom-hide" );
+  .attr("class", "leaflet-zoom-hide" )
+  .attr("id", "svgId");
 
 
 
@@ -88,6 +89,25 @@ function worldMap(data,numClusters) {
 
   };
 
+  var buttons = L.control({ position: "bottomleft" });
+
+  buttons.onAdd = function(leaflet_map) {
+
+      this._div = L.DomUtil.create("div", "buttons");
+
+
+        this._div.innerHTML += '<button id="switchButton1"  class="btn btn-outline-light mr-2">Scatter plot </button>';
+        this._div.innerHTML += '<button id="switchButton2"  class="btn btn-outline-light">Heatmap </button>';
+
+
+  return this._div;
+
+  };
+
+
+buttons.addTo(leaflet_map);
+
+
   legend.update = function(d){
       this._div.innerHTML = '<span> Crime rate</span><br>';
         if(d == undefined) d = {};
@@ -107,14 +127,14 @@ legend.boroZoom = function(d){
       Activated = true;
       this._div.innerHTML = '<b> Crime info of '+ d.BoroName +'</b><br>';
       this._div.innerHTML += '<span> Amount of crimes:  '+d.amoutOfCrime+'</span><br>';
-      this._div.innerHTML += '<span> Average days to report '+d.reported+'</span><br>';
-      this._div.innerHTML += '<span> Averge age of suspect '+d.ageSM+' </span><br>';
-      this._div.innerHTML += '<span> Averge age of victum '+d.ageVM+' </span><br>';
-      this._div.innerHTML += '<span> Susp amount of men '+d.men_susp+' </span><br>';
-      this._div.innerHTML += '<span> Susp amount of women '+d.women_susp+' </span><br>';
-      this._div.innerHTML += '<span> Vic amount of men '+d.men_vic+' </span><br>';
-      this._div.innerHTML += '<span> Vic amount of women '+d.women_vic+' </span><br>';
-      this._div.innerHTML += '<span> Vic amount of E? '+d.E_vic+' </span><br>';
+      this._div.innerHTML += '<span> Average days to report: '+d.reported+'</span><br>';
+      this._div.innerHTML += '<span> Averge age of suspect: '+d.ageSM+' </span><br>';
+      this._div.innerHTML += '<span> Averge age of victum: '+d.ageVM+' </span><br>';
+      this._div.innerHTML += '<span> Susp amount of men: '+d.men_susp+' </span><br>';
+      this._div.innerHTML += '<span> Susp amount of women: '+d.women_susp+' </span><br>';
+      this._div.innerHTML += '<span> Vic amount of men: '+d.men_vic+' </span><br>';
+      this._div.innerHTML += '<span> Vic amount of women: '+d.women_vic+' </span><br>';
+      this._div.innerHTML += '<span> Vic amount of E?: '+d.E_vic+' </span><br>';
 
 }
 legend.addTo(leaflet_map);
@@ -196,6 +216,9 @@ legend.addTo(leaflet_map);
 
     }
   }
+
+
+
   var feature = g.selectAll("circle")
   .data(data.features)
   .enter()
@@ -286,12 +309,21 @@ legend.addTo(leaflet_map);
   document.getElementById('switchButton1').onclick = function() {
     legend.remove();
     geoJ.remove();
+    document.getElementById("info").style.display = "block";
+    document.getElementById("svgId").style.display = "block";
+
+
   }
 
   document.getElementById('switchButton2').onclick = function() {
     legend.addTo(leaflet_map);
     geoJ.addTo(leaflet_map);
+    document.getElementById("info").style.display = "none";
+    document.getElementById("svgId").style.display = "none";
+
   }
+
+
   function map_link() {
     return "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png";
   }
