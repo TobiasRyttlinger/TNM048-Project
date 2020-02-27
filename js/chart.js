@@ -1,6 +1,6 @@
 var width = 975;
 var height = 720;
-var keys = ["Completed", "Level","Boro"];
+var keys = ["Completed", "Level","Boro", "Age_vic", "Sex_vic"];
 
 function ParallelSets(data,numClusters){
 
