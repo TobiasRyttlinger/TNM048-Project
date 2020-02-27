@@ -25,13 +25,10 @@ function worldMap(data,numClusters) {
   //Count the amount of crimes in each boro
   //place it in topoData
   var topoData = new getData();
-  
+  var m =  b = x = s = q = 0;
   countCrime(data)
 
-
-
   function countCrime(data){
-    var m =  b = x = s = q = 0;
     data.features.forEach(element => {
       if(element.properties.Boro == "MANHATTAN")++m
       if(element.properties.Boro == "BROOKLYN")++b
@@ -72,6 +69,7 @@ function worldMap(data,numClusters) {
   };
 
 legend.addTo(leaflet_map);
+
   function choroplethStyle(d) {
     return {
 
@@ -87,7 +85,10 @@ legend.addTo(leaflet_map);
 
     function highlightFeature(e) {
     var layer = e.target;
-
+      layer.append("g")
+          .text('Borough: ');
+    console.log(e)
+      
     layer.setStyle({
         weight: 5,
         color: 'white',
