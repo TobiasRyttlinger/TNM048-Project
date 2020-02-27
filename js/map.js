@@ -52,11 +52,11 @@ function worldMap(data,numClusters) {
             boro.properties.reported += element.properties.Reported.days;
             if(element.properties.Age_susp !== undefined){
               boro.properties.ageSM += element.properties.Age_susp;
-              count2++;              
+              count2++;
             }
             if(element.properties.Age_vic !== undefined){
               boro.properties.ageVM += element.properties.Age_vic;
-              count3++;           
+              count3++;
             }
           }
         });
@@ -99,7 +99,7 @@ function worldMap(data,numClusters) {
             this._div.innerHTML += '<i style="background: '+boroColor(element.properties.amoutOfCrime)+'"></i><span>'+element.properties.amoutOfCrime+' Crimes</span><br>';
           }
         })
-      
+
   }
 
 legend.boroZoom = function(d){
@@ -115,7 +115,7 @@ legend.boroZoom = function(d){
       this._div.innerHTML += '<span> Vic amount of men '+d.men_vic+' </span><br>';
       this._div.innerHTML += '<span> Vic amount of women '+d.women_vic+' </span><br>';
       this._div.innerHTML += '<span> Vic amount of E? '+d.E_vic+' </span><br>';
-      
+
 }
 legend.addTo(leaflet_map);
   function choroplethStyle(d) {
@@ -134,7 +134,7 @@ legend.addTo(leaflet_map);
     function highlightFeature(e) {
     var layer = e.target;
     console.log()
-    
+
     layer.setStyle({
         weight: 5,
         color: 'white',
@@ -157,7 +157,7 @@ legend.addTo(leaflet_map);
   function zoomToFeature(e) {
     legend.boroZoom(e.target.feature.properties);
     leaflet_map.fitBounds(e.target.getBounds());
-    
+
   }
   function onEachFeature(feature, layer) {
     layer.on({
@@ -284,7 +284,15 @@ legend.addTo(leaflet_map);
     .duration(800)
     .attr('r', 0)
   }
+  document.getElementById('switchButton1').onclick = function() {
+    legend.remove();
+    geoJ.remove();
+  }
 
+  document.getElementById('switchButton2').onclick = function() {
+    legend.addTo(leaflet_map);
+    geoJ.addTo(leaflet_map);
+  }
   function map_link() {
     return "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png";
   }
