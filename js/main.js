@@ -4,7 +4,7 @@ var world_map, dbscanner, chart
 
 
 d3.csv("data/NYPD_Complaint_Data_Historic_new.csv", function(data){
-    
+
     //-------parse Data------------
     data = parseData(data);
     console.log(data)
@@ -31,7 +31,7 @@ d3.csv("data/NYPD_Complaint_Data_Historic_new.csv", function(data){
     });*/
     //----------------------------------------
 
-    dbscan_result = DBSCAN().eps(5).minPts(30).data(data.features);
+    dbscan_result = DBSCAN().eps(6).minPts(30).data(data.features);
     var [ClusterAssignment,NumClusters] = dbscan_result();
 
 
@@ -49,7 +49,8 @@ d3.csv("data/NYPD_Complaint_Data_Historic_new.csv", function(data){
     console.log(NumClusters);
 
      world_map = new worldMap(data,NumClusters);
-     chart = new ParallelSets(data.features,NumClusters);
+     chart = new build_parallel_sets(data.features,data.features);
+
 
     		});
 
@@ -67,7 +68,7 @@ function getRandomInt(min, max) {
 function parseData(data){
     var d = [];
     var i = 0;
-    var timeParse = d3.timeParse("%d/%m/%Y");
+    var timeParse =  d3.time.format("%d-%b-%y");
     data.forEach(element => {
 
 
@@ -91,16 +92,16 @@ function parseData(data){
                 Boro: element.BORO_NM,
                 Place: element.PREM_TYP_DESC,
                 Age_susp: ageParse(element.SUSP_AGE_GROUP),
-                Race_susp: element.SUSP_RACE, 
-                Sex_susp: element.SUSP_SEX, 
+                Race_susp: element.SUSP_RACE,
+                Sex_susp: element.SUSP_SEX,
                 Age_vic: ageParse(element.VIC_AGE_GROUP),
-                Race_vic: element.VIC_RACE, 
+                Race_vic: element.VIC_RACE,
                 Sex_vic: element.VIC_SEX
             }}
             );
 
     });
-    
+
     var datany = {type: "FeatureCollection", features: d};
     return datany;
 

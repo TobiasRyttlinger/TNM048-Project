@@ -14,7 +14,7 @@ function worldMap(data,numClusters) {
 
 
   var cValue = function(d) { return d;};
-  var scaleQuantColor = d3.scaleQuantile()
+  var scaleQuantColor = d3.scale.quantile()
   .range(["#111111","#1f78b4","#b2df8a","#33a02c","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6","#6a3d9a","#ffff99","#b15928"])
   .domain([0,12]);
 
@@ -46,7 +46,7 @@ function worldMap(data,numClusters) {
   }
 
   //color depending on crime
-  var boroColor = d3.scaleLinear()
+  var boroColor = d3.scale.linear()
   .domain([0, 409])
   .range(['white', 'red']);
   //style of choropleth
@@ -85,10 +85,8 @@ legend.addTo(leaflet_map);
 
     function highlightFeature(e) {
     var layer = e.target;
-      layer.append("g")
-          .text('Borough: ');
-    console.log(e)
-      
+
+
     layer.setStyle({
         weight: 5,
         color: 'white',
@@ -134,8 +132,8 @@ legend.addTo(leaflet_map);
   }
 
 
-  var transform = d3.geoTransform({point: projectPointsOnMap});
-  var d3path = d3.geoPath().projection(transform);
+  var transform = d3.geo.transform({point: projectPointsOnMap});
+  var d3path = d3.geo.path().projection(transform);
 
   function applyLatLngToLayer(d) {
     var x = d.geometry.coordinates[0];
