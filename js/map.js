@@ -56,20 +56,50 @@ function worldMap(data,numClusters) {
 
   legend.onAdd = function(leaflet_map) {
 
-  var div = L.DomUtil.create("div", "legend");
-  div.innerHTML += '<span> Crime rate</span><br>';
-  div.innerHTML += '<i style="background:'+boroColor(m)+'"></i><span>'+m+' Crimes</span><br>';
-  div.innerHTML += '<i style="background: '+boroColor(b)+'"></i><span>'+b+' Crimes</span><br>';
-  div.innerHTML += '<i style="background: '+boroColor(x)+'"></i><span>'+x+' Crimes</span><br>';
-  div.innerHTML += '<i style="background: '+boroColor(s)+'"></i><span>'+s+' Crimes</span><br>';
-  div.innerHTML += '<i style="background: '+boroColor(q)+'"></i><span>'+q+' Crimes</span><br>';
-
-  return div;
+      this._div = L.DomUtil.create("div", "legend");
+      this._div.innerHTML += '<span> Crime rate</span><br>';
+      this._div.innerHTML += '<i style="background: '+boroColor(s)+'"></i><span>'+s+' Crimes</span><br>';
+      this._div.innerHTML += '<i style="background: '+boroColor(q)+'"></i><span>'+q+' Crimes</span><br>';
+      this._div.innerHTML += '<i style="background: '+boroColor(x)+'"></i><span>'+x+' Crimes</span><br>';
+      this._div.innerHTML += '<i id="crime" style="background:'+boroColor(m)+'"></i><span>'+m+' Crimes</span><br>';
+      this._div.innerHTML += '<i style="background: '+boroColor(b)+'"></i><span>'+b+' Crimes</span><br>';
+      this.update();
+  return this._div;
 
   };
+  
 
+  legend.update = function(d){
+    this._div.innerHTML = '<span> Crime rate</span><br>';
+      if(d == undefined) d = {};
+      if(d.BoroCode === 5){
+        this._div.innerHTML += '<i style="background: '+boroColor(s)+';  border: 8px solid white;'+'"></i><b style="color: black;">'+s+' Crimes</b><br>';
+      }else{
+        this._div.innerHTML += '<i style="background: '+boroColor(s)+'"></i><span>'+s+' Crimes</span><br>';
+      }
+      if(d.BoroCode === 4){
+        this._div.innerHTML += '<i style="background: '+boroColor(q)+';  border: 2px solid white;'+'"></i><b style="color: black;">'+q+' Crimes</b><br>';
+      }else{
+        this._div.innerHTML += '<i style="background: '+boroColor(q)+'"></i><span>'+q+' Crimes</span><br>';
+      }
+      if(d.BoroCode === 2){
+        this._div.innerHTML += '<i style="background: '+boroColor(x)+';  border: 2px solid white;'+'"></i><b style="color: black;">'+x+' Crimes</b><br>';
+      }else{
+        this._div.innerHTML += '<i style="background: '+boroColor(x)+'"></i><span>'+x+' Crimes</span><br>';
+      }
+      if(d.BoroCode === 1){
+        this._div.innerHTML += '<i style="background: '+boroColor(m)+';  border: 2px solid white;'+'"></i><b style="color: black;">'+m+' Crimes</b><br>';
+      }else{
+        this._div.innerHTML += '<i id="crime" style="background:'+boroColor(m)+'"></i><span>'+m+' Crimes</span><br>';
+      }
+      if(d.BoroCode === 3){
+        this._div.innerHTML += '<i style="background: '+boroColor(b)+';  border: 2px solid white;'+'"></i><b style="color: black;">'+b+' Crimes</b><br>';
+      }else{
+        this._div.innerHTML += '<i style="background: '+boroColor(b)+'"></i><span>'+b+' Crimes</span><br>';
+      }
+  
+}
 legend.addTo(leaflet_map);
-
   function choroplethStyle(d) {
     return {
 
@@ -85,16 +115,15 @@ legend.addTo(leaflet_map);
 
     function highlightFeature(e) {
     var layer = e.target;
-      layer.append("g")
-          .text('Borough: ');
-    console.log(e)
-      
+    console.log()
+    
     layer.setStyle({
         weight: 5,
         color: 'white',
         dashArray: '',
         fillOpacity: 0.7
     });
+    legend.update(layer.feature.properties);
 
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
         layer.bringToFront();
@@ -105,6 +134,7 @@ legend.addTo(leaflet_map);
   function resetHighlight(e) {
     geoJ.resetStyle(e.target);
     //delet text
+    //legend.update();
   }
   function zoomToFeature(e) {
     leaflet_map.fitBounds(e.target.getBounds());
