@@ -3,11 +3,11 @@ var world_map, dbscanner, chart
 
 
 
-d3.csv("data/NYPD_Complaint_Data_Historic.csv", function(data){
+d3.csv("data/NYPD_Complaint_Data_Historic_new.csv", function(data){
+    console.log(data)
     //-------parse Data------------
     data = parseData(data);
-    console.log(data)
-
+    
     //Generating numerical data
 
     for (var i = 0; i < data.features.length; i++){
@@ -62,6 +62,8 @@ function getRandomInt(min, max) {
 }
 
 
+
+
 function parseData(data){
     var d = [];
     var i = 0;
@@ -87,11 +89,18 @@ function parseData(data){
                 Type: element.OFNS_DESC,
                 KeyCode: parseInt(element.KY_CD),
                 Boro: element.BORO_NM,
-                Place: element.PREM_TYP_DESC
+                Place: element.PREM_TYP_DESC,
+                Age_susp: element.SUSP_AGE_GROUP,
+                Race_susp: element.SUSP_RACE, 
+                Sex_susp: element.SUSP_SEX, 
+                Age_vic: element.VIC_AGE_GROUP,
+                Race_vic: element.VIC_RACE, 
+                Sex_vic: element.VIC_SEX
             }}
             );
 
     });
+    
     var datany = {type: "FeatureCollection", features: d};
     return datany;
 
