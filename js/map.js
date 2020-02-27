@@ -107,14 +107,14 @@ legend.boroZoom = function(d){
       Activated = true;
       this._div.innerHTML = '<b> Crime info of '+ d.BoroName +'</b><br>';
       this._div.innerHTML += '<span> Amount of crimes:  '+d.amoutOfCrime+'</span><br>';
-      this._div.innerHTML += '<span> Average days to report '+d.reported+'</span><br>';
-      this._div.innerHTML += '<span> Averge age of suspect '+d.ageSM+' </span><br>';
-      this._div.innerHTML += '<span> Averge age of victum '+d.ageVM+' </span><br>';
-      this._div.innerHTML += '<span> Susp amount of men '+d.men_susp+' </span><br>';
-      this._div.innerHTML += '<span> Susp amount of women '+d.women_susp+' </span><br>';
-      this._div.innerHTML += '<span> Vic amount of men '+d.men_vic+' </span><br>';
-      this._div.innerHTML += '<span> Vic amount of women '+d.women_vic+' </span><br>';
-      this._div.innerHTML += '<span> Vic amount of E? '+d.E_vic+' </span><br>';
+      this._div.innerHTML += '<span> Average days to report: '+d.reported+'</span><br>';
+      this._div.innerHTML += '<span> Averge age of suspect: '+d.ageSM+' </span><br>';
+      this._div.innerHTML += '<span> Averge age of victum: '+d.ageVM+' </span><br>';
+      this._div.innerHTML += '<span> Susp amount of men: '+d.men_susp+' </span><br>';
+      this._div.innerHTML += '<span> Susp amount of women: '+d.women_susp+' </span><br>';
+      this._div.innerHTML += '<span> Vic amount of men: '+d.men_vic+' </span><br>';
+      this._div.innerHTML += '<span> Vic amount of women: '+d.women_vic+' </span><br>';
+      this._div.innerHTML += '<span> Vic amount of E?: '+d.E_vic+' </span><br>';
 
 }
 legend.addTo(leaflet_map);
@@ -196,6 +196,9 @@ legend.addTo(leaflet_map);
 
     }
   }
+
+
+  
   var feature = g.selectAll("circle")
   .data(data.features)
   .enter()
@@ -292,6 +295,8 @@ legend.addTo(leaflet_map);
     legend.addTo(leaflet_map);
     geoJ.addTo(leaflet_map);
   }
+
+
   function map_link() {
     return "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png";
   }
