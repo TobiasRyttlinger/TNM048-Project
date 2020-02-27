@@ -4,9 +4,9 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var userFilt = {};
 // //////// array of possible dimensions the user could chose to visualize  /////////////////////////
-userFilt["dimension_options"] = ["Completed","Age_vic","Sex_vic","Race_vic","Place","Boro"];
+userFilt["dimension_options"] = ["Completed","Age_vic","Sex_vic","Race_vic","Place","Boro","Level","Type"];
 // //////// array of dimensions, the user has chosen to visualize or are given as starting example //////////////////////
-userFilt["selected_options"] = ["Completed","Boro","Age_vic"];
+userFilt["selected_options"] = ["Boro","Level","Type"];
 // ///// object consisting of dimension name: value name key:value pairs - these limit the input CSV values to only rows that have these dimension:value pairs.
 // ////////////items are added this like, key:[values] or dimension_name:[dimension_item_1, dimension_item_2] ////////////////////////////////////////////////////////////////////////////
 userFilt["limitations"] ={};
@@ -144,9 +144,6 @@ function popLimitObjForDim(dimension){
       }
       console.log("did not find a match in findArrayObjNumber(): Dimension is ",dimension," array_unique_values_for_each_dimension is ",array_unique_values_for_each_dimension)
     }
-function parallelCoords(data){
-  return 1;
-}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////  Builds Drop-Down Menus & populates Them   /////////////////////////////////////////
@@ -201,7 +198,6 @@ function build_dd_list(dimension_options,selected_options){
      // console.log("zz userFilt["limitations"],",userFilt["limitations"],"type of userFilt["limitations"],",typeof(userFilt["limitations"]))
      // console.log("zz userFilt["uniqueValuesForEachDimensionArrayOfObj"],",userFilt["uniqueValuesForEachDimensionArrayOfObj"],"type of userFilt["uniqueValuesForEachDimensionArrayOfObj"],",typeof(userFilt["uniqueValuesForEachDimensionArrayOfObj"]))
     // popLimitObjForDim(dimension_options[dimension])
-    initiateClickers();
   }
 
 
@@ -211,148 +207,6 @@ function build_dd_list(dimension_options,selected_options){
 
 };
 
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////  Handles User Interaction   /////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-///// when document ready, this handles the user interface of clicks resulting in
-///// changing CSS classes and putting items in and out of the selected diemnsions array
-function initiateClickers(){
-    $(document).ready(function(e){
-      /////--// This handles clicks on the dimension or category drop-down using jquery. ////////
-    $("li.dimensions a.dimensions").unbind().click(function(e){
-        /////--// This handles clicks on the dimension or category drop-down if the category hasn't yet been selected. ////////
-      if ($(this).hasClass("not_checked")===true){
-        // console.log("zzz clicked dimensions and class= not_checked")
-        $(this).removeClass("not_checked");
-        $(this).addClass("checked");
-        var id_helper_orig = $(this).attr('id')
-        // id_helper = id_helper.split('_').join(" ");
-        id_helper = findAndReplace(id_helper_orig,"_"," ")
-        checkIfDimSelectChangeLimit(id_helper)
-        userFilt["selected_options"].push(id_helper);
-        $("li a#"+id_helper_orig).addClass("checked");
-        $("li a#"+id_helper_orig).removeClass("not_checked");
-         // console.log("zz print userFilt["limitations"], was not checked,",userFilt["limitations"])
-        event.stopPropagation();
-      }
-      /////--// This handles clicks on the dimension or category drop-down if the category has been selected. ////////
-      else{
-        // console.log("zzz clicked dimensions and class= checked")
-        $(this).addClass("not_checked");
-        $(this).removeClass("checked");
-        var id_helper_orig = $(this).attr('id')
-        id_helper = findAndReplace(id_helper_orig,"_"," ")
-        checkIfDimSelectChangeLimit(id_helper)
-        // removeA(userFilt["selected_options"], id_helper);
-        // console.log("zz zz userFilt["selected_options"], ", userFilt["selected_options"])
-        userFilt["selected_options"] = popItemArray(userFilt["selected_options"], id_helper)
-         // console.log("zz print userFilt["limitations"], was checked,",userFilt["limitations"])
-         event.stopPropagation();
-      }
-      event.stopPropagation();
-      userFilt["selected_options"] = uniq(userFilt["selected_options"]);
-      // console.log("check ",nonsense)
-      // console.log("zzz check userFilt["selected_options"] ", userFilt["selected_options"])
-      // console.log("zzz clicked dimensions, this is end of that click?")
-    })
-    /// these next two highlight where a mouse click occurs the category drop-down menus
-    $("li a.dimensions").mousedown(function(){
-      $(this).addClass("mouseD")
-    })
-    $("li a.dimensions").mouseup(function(){
-      // console.log("test")
-       // console.log("zz print userFilt["limitations"],",userFilt["limitations"])
-      $(this).removeClass("mouseD")
-    })
-    /////// removes items when hovered over
-    $("li a.dimensions, li.dimensions").mouseenter(function(){
-      // console.log("mouseover")
-      var current_dim_id = $(this).attr('id');
-      // console.log("current_dim_id",current_dim_id)
-      // $("ul."+current_dim_id).removeClass("hidden");
-      $("li."+current_dim_id).removeClass("hidden");
-      // recent_hover = current_dim_id;
-    })
-  /////--// buck_right is the class for dimension values... in other words.. the possible values for each dimensions ////////
-
-    $("li.buck_right").mouseleave(function(){
-      var current_dim_id = $(this).attr('dimension');
-      // console.log("dimension left at small level",current_dim_id)
-      // $("ul."+current_dim_id).addClass("hidden");
-      $("li.buck_right."+current_dim_id).addClass("hidden");
-      // recent_hover = current_dim_id;
-       // console.log("zz print userFilt["limitations"],",userFilt["limitations"])
-    })
-    $("li.dimensions").mouseleave(function(){
-      var current_dim_id = $(this).attr('id');
-      // console.log("dimension left at big level",current_dim_id)
-      // $("ul."+current_dim_id).addClass("hidden");
-      $("li.buck_right."+current_dim_id).addClass("hidden");
-      // recent_hover = current_dim_id;
-    })
-    $("li.buck_right").unbind().click(function(){
-      var current_dim_id = $(this).attr('dimensions');
-      var current_dim_value_id = $(this).attr('id');
-      // console.log("yyy yy current_dim_id ",current_dim_id)
-      // console.log("yyy yy typeof(current_dim_id) ",typeof(current_dim_id))
-      // console.log("yyy yy current_dim_value_id ",current_dim_value_id)
-      // console.log("yyy yy typeof(current_dim_value_id) ",typeof(current_dim_value_id))
-      var current_dim_id_unform = findAndReplace(current_dim_id,"_"," ");
-      var current_dim_value_id_unform = findAndReplace(current_dim_value_id,"_"," ");
-      // console.log("yyy yy userFilt["limitations"][current_dim_id_unform]",userFilt["limitations"][current_dim_id_unform])
-
-      checkIfDimensionSelectedChange(current_dim_id_unform)
-
-      if (userFilt["limitations"][current_dim_id_unform]){
-        /// checker helper
-        var present_before = "no"
-        for (each in userFilt["limitations"][current_dim_id_unform]){
-          if(userFilt["limitations"][current_dim_id_unform][each] === current_dim_value_id_unform){
-            // console.log("yyy yy userFilt["limitations"][current_dim_id_unform]",userFilt["limitations"][current_dim_id_unform])
-            userFilt["limitations"][current_dim_id_unform].splice(each, 1);
-            // console.log("yyy yy 2 userFilt["limitations"][current_dim_id_unform]",userFilt["limitations"][current_dim_id_unform])
-
-            present_before = "yes";
-            // console.log("yyy present_before = ", present_before)
-            // console.log("yyy check userFilt["limitations"] dimension array after splice, = ",userFilt["limitations"][current_dim_id_unform])
-          }
-        }
-        if (present_before === "no"){
-          userFilt["limitations"][current_dim_id_unform].push(current_dim_value_id_unform)
-        }
-        // else if() {present_before = "no"}
-        // console.log("check userFilt["limitations"] dimension array after splice, = ",userFilt["limitations"][current_dim_id_unform])
-
-      }
-      else {
-        userFilt["limitations"][current_dim_id_unform] =[];
-        userFilt["limitations"][current_dim_id_unform].push(current_dim_value_id_unform)
-      }
-      ////////////////////////////  this changes the CSS class of the dimension which is the parent of the dimension value clicked if not already highlighted
-      if ($("li#"+current_dim_id+" a.dimensions").hasClass("not_checked")===true){
-        $("li#"+current_dim_id+" a.dimensions").removeClass("not_checked");
-        $("li#"+current_dim_id+" a.dimensions").addClass("checked");
-      }
-      /////
-      userFilt["limitations"][current_dim_id_unform] = uniq(userFilt["limitations"][current_dim_id_unform])
-      // console.log("zz z check userFilt["limitations"]: ",userFilt["limitations"])
-      if ($(this).children("a").hasClass("not_checked")===true){
-        $(this).children("a").removeClass("not_checked");
-        $(this).children("a").addClass("checked");
-      }
-      else {
-        $(this).children("a").removeClass("checked");
-        $(this).children("a").addClass("not_checked");
-      }
-      // console.log("zz z check userFilt["limitations"] dimension array after splice, = ",userFilt["limitations"][current_dim_id_unform])
-      // console.log("zz z has class checked test",$(this).hasClass("checked")===true)
-      //  console.log("zz z print userFilt["limitations"],",userFilt["limitations"])
-    })
-  })
-}
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -392,7 +246,7 @@ function limitToSomeNew(arrayCSV, limitations){
         // console.log("temp_array",temp_array)
     }
   }
-   console.log("!! * * temp_array",temp_array)
+   //console.log("!! * * temp_array",temp_array)
   arrayCSV = [];
   arrayCSV = temp_array;
   // console.log("!! * * result returned is ",arrayCSV);
@@ -483,6 +337,7 @@ function build_parallel_sets(data){
     var resultArray2 = [];
     for(var i = 0; i <data.length;i++){
       resultArray2[i] = data[i].properties;
+
     }
 
     // console.log("* * vis.datum(resultArray2)= ",vis.datum(resultArray2));
@@ -501,8 +356,8 @@ function build_parallel_sets(data){
             console.log("* d in dimension =",d)
             dimensions.push(d); });
         dimensions.sort(function(a, b) { return a.y - b.y; });
-        var root = d3.parsets.tree({children: {}}, data, dimensions.map(function(d) {
-          console.log("* - d.name", d.name)
+        var root = d3.parsets.tree({children: {}}, resultArray2, dimensions.map(function(d) {
+          //console.log("* - d.name", d.name)
           return d.name; }), function() { return 1; }),
 
             nodes = partition(root),
@@ -636,16 +491,4 @@ function build_parallel_sets(data){
       return lo > 1 ? t.substr(0, lo - 2) + "…" : "";
     };
   }
-
-  d3.select("#file").on("change", function() {
-    var file = this.files[0],
-        reader = new FileReader;
-    reader.onloadend = function() {
-      var csv = d3.csv.parse(reader.result);
-      vis.datum(csv).call(chart
-          .value(csv[0].hasOwnProperty("Number") ? function(d) { return +d.Number; } : 1)
-          .dimensions(function(d) { return d3.keys(d[0]).filter(function(d) { return d !== "Number"; }).sort(); }));
-    };
-    reader.readAsText(file);
-  });
 }

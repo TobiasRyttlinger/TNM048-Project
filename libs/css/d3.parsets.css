@@ -5,7 +5,8 @@
 .dimension tspan.sort:hover { fill: #333; }
 .dimension:hover tspan.name { fill: #000; }
 .dimension:hover tspan.sort { opacity: 1; }
-.dimension line { stroke: #000; }
+.dimension line { stroke: #fff; }
+.dimension text { color: #fff; }
 .dimension rect { stroke: none; fill-opacity: 0; }
 .dimension > rect, .category-background { fill: #fff; }
 .dimension > rect { display: none; }

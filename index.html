@@ -11,7 +11,6 @@
 -->
 
 <link rel="stylesheet" href="libs/css/index.css" />
-<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="libs/css/paraset_addOn.css" />
 <link rel="stylesheet" type="text/css" href="libs/css/d3.parsets.css" />
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" />
@@ -49,26 +48,14 @@
     <div class="row mt-5">
       <div class="col-12">
 
-        <div class="center margin_top_above_menus">
-          <button class="rebuild button">Rebuild Visualization</button>
-          <div class="center inline dropdown">
-            <ul id="drop-nav" class="">
-              <li><a href="#" class="Select_Datasets">Select New Datasets</a>
-                <ul id="dimensions_list">
-                  <li><a href="#">There is</a></li>
-                  <li><a href="#">a problem.</a></li>
-                  <li><a href="#">Something didn't load. Probably JavaScript!</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
 
 
         <button id="switchButton1"> Press me </button>
         <button id="switchButton2"> Press me </button>
+        <div id="body2">
+          <div class="parsets tooltip"></div>
         <div id="vis"><noscript><img src="parsets.png"></noscript></div>
-
+        </div>
       </div>
     </div>
   </div>
@@ -77,16 +64,9 @@
 
 
 <script type=text/javascript src="libs/jquery/jquery.min.js"></script>
-<script type=text/javascript src="libs/bootstrap/js/bootstrap.min.js"></script>
+<script type=text/javascript src="js/bootstrap.js"></script>
 <script type="text/javascript" src="libs/d3/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/leaflet-src.js"></script>
-
-<!--New stuff for parralell sets-->
-<script src="https://unpkg.com/d3-array@1"></script>
-<script src="https://unpkg.com/d3-collection@1"></script>
-<script src="https://unpkg.com/d3-path@1"></script>
-<script src="https://unpkg.com/d3-shape@1"></script>
-<script src="https://unpkg.com/d3-sankey@0"></script>
 
 <!-- our scripts -->
 <script type="text/javascript" src="js/DBSCAN.js"></script>
@@ -94,7 +74,6 @@
 <script src="js/main.js"></script>
 <script src="js/chart.js"></script>
 <script src="js/choropleth.js"></script>
-<script src="js/bootstrap.js"></script>
 <script src="js/d3.min.js"></script>
 <script src="js/d3.parsets.js"></script>
 <script src="js/highlight.min.js"></script>

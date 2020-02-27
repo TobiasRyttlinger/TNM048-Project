@@ -204,7 +204,7 @@ legend.addTo(leaflet_map);
   .style("opacity", 0.8)
   .attr('r', 5)
   .style("fill", function(d) {
-    return scaleQuantColor(cValue(d.cluster));
+    return scaleQuantColor(cValue(d.properties.cluster));
   })
   .on('mouseover', function(d){
     d3.select(this)
