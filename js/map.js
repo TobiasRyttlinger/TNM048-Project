@@ -25,25 +25,46 @@ function worldMap(data,numClusters) {
   //Count the amount of crimes in each boro
   //place it in topoData
   var topoData = new getData();
-  var m =  b = x = s = q = 0;
   countCrime(data)
 
   function countCrime(data){
-    data.features.forEach(element => {
-      if(element.properties.Boro == "MANHATTAN")++m
-      if(element.properties.Boro == "BROOKLYN")++b
-      if(element.properties.Boro == "BRONX")++x
-      if(element.properties.Boro == "STATEN ISLAND")++s
-      if(element.properties.Boro == "QUEENS")++q
-    });
-    topoData.features.forEach(element => {
-      if(element.properties.BoroName == "Manhattan") element.properties.amoutOfCrime =  m;
-      if(element.properties.BoroName == "Brooklyn")element.properties.amoutOfCrime =  b;
-      if(element.properties.BoroName == "Bronx")element.properties.amoutOfCrime =  x;
-      if(element.properties.BoroName == "Staten Island")element.properties.amoutOfCrime =  s;
-      if(element.properties.BoroName== "Queens")element.properties.amoutOfCrime =  q;
-    })
-  }
+    topoData.features.forEach(boro => {
+        boro.properties.amoutOfCrime = 0;
+        boro.properties.men_susp = 0;
+        boro.properties.women_susp = 0;
+        boro.properties.U_susp = 0;
+        boro.properties.men_vic = 0;
+        boro.properties.women_vic = 0;
+        boro.properties.E_vic = 0;
+        boro.properties.reported = 0;
+        boro.properties.ageSM = 0;
+        boro.properties.ageVM = 0;
+        var count = count2 = count3 = 0;
+        data.features.forEach(element => {
+          if(element.properties.Boro.toLowerCase() === boro.properties.BoroName.toLowerCase()){
+            boro.properties.amoutOfCrime += 1;
+            if(element.properties.Sex_susp === "M")boro.properties.men_susp +=1;
+            if(element.properties.Sex_susp === "F")boro.properties.women_susp +=1;
+            if(element.properties.Sex_susp === "U")boro.properties.U_susp +=1;
+            if(element.properties.Sex_vic === "M")boro.properties.men_vic +=1;
+            if(element.properties.Sex_vic === "F")boro.properties.women_vic +=1;
+            if(element.properties.Sex_vic === "E")boro.properties.E_vic +=1;
+            boro.properties.reported += element.properties.Reported.days;
+            if(element.properties.Age_susp !== undefined){
+              boro.properties.ageSM += element.properties.Age_susp;
+              count2++;
+            }
+            if(element.properties.Age_vic !== undefined){
+              boro.properties.ageVM += element.properties.Age_vic;
+              count3++;
+            }
+          }
+        });
+        boro.properties.reported /= boro.properties.amoutOfCrime;
+        boro.properties.ageSM /= count2;
+        boro.properties.ageVM /= count3;
+  })
+}
 
   //color depending on crime
   var boroColor = d3.scale.linear()
@@ -56,20 +77,47 @@ function worldMap(data,numClusters) {
 
   legend.onAdd = function(leaflet_map) {
 
-  var div = L.DomUtil.create("div", "legend");
-  div.innerHTML += '<span> Crime rate</span><br>';
-  div.innerHTML += '<i style="background:'+boroColor(m)+'"></i><span>'+m+' Crimes</span><br>';
-  div.innerHTML += '<i style="background: '+boroColor(b)+'"></i><span>'+b+' Crimes</span><br>';
-  div.innerHTML += '<i style="background: '+boroColor(x)+'"></i><span>'+x+' Crimes</span><br>';
-  div.innerHTML += '<i style="background: '+boroColor(s)+'"></i><span>'+s+' Crimes</span><br>';
-  div.innerHTML += '<i style="background: '+boroColor(q)+'"></i><span>'+q+' Crimes</span><br>';
-
-  return div;
+      this._div = L.DomUtil.create("div", "legend");
+      this._div.innerHTML += '<span> Crime rate</span><br>';
+      topoData.features.forEach(d => {
+        this._div.innerHTML += '<i style="background: '+boroColor(d.properties.amoutOfCrime)+'"></i><span>'+d.properties.amoutOfCrime+' Crimes</span><br>';
+      })
+      this.boroZoom();
+      this.update();
+  return this._div;
 
   };
 
-legend.addTo(leaflet_map);
+  legend.update = function(d){
+      this._div.innerHTML = '<span> Crime rate</span><br>';
+        if(d == undefined) d = {};
+        topoData.features.forEach(element => {
+          if(d.BoroName === element.properties.BoroName){
+            this._div.innerHTML += '<i style="background: '+boroColor(element.properties.amoutOfCrime)+';  border: 2px solid white;'+element.properties.amoutOfCrime+'"></i><b style="color: black;">'+d.amoutOfCrime+' Crimes</b><br>';
+          }
+          else{
+            this._div.innerHTML += '<i style="background: '+boroColor(element.properties.amoutOfCrime)+'"></i><span>'+element.properties.amoutOfCrime+' Crimes</span><br>';
+          }
+        })
 
+  }
+
+legend.boroZoom = function(d){
+      if(d == undefined) d ={};
+      Activated = true;
+      this._div.innerHTML = '<b> Crime info of '+ d.BoroName +'</b><br>';
+      this._div.innerHTML += '<span> Amount of crimes:  '+d.amoutOfCrime+'</span><br>';
+      this._div.innerHTML += '<span> Average days to report '+d.reported+'</span><br>';
+      this._div.innerHTML += '<span> Averge age of suspect '+d.ageSM+' </span><br>';
+      this._div.innerHTML += '<span> Averge age of victum '+d.ageVM+' </span><br>';
+      this._div.innerHTML += '<span> Susp amount of men '+d.men_susp+' </span><br>';
+      this._div.innerHTML += '<span> Susp amount of women '+d.women_susp+' </span><br>';
+      this._div.innerHTML += '<span> Vic amount of men '+d.men_vic+' </span><br>';
+      this._div.innerHTML += '<span> Vic amount of women '+d.women_vic+' </span><br>';
+      this._div.innerHTML += '<span> Vic amount of E? '+d.E_vic+' </span><br>';
+
+}
+legend.addTo(leaflet_map);
   function choroplethStyle(d) {
     return {
 
@@ -86,13 +134,13 @@ legend.addTo(leaflet_map);
     function highlightFeature(e) {
     var layer = e.target;
 
-
     layer.setStyle({
         weight: 5,
         color: 'white',
         dashArray: '',
         fillOpacity: 0.7
     });
+    legend.update(layer.feature.properties);
 
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
         layer.bringToFront();
@@ -103,8 +151,10 @@ legend.addTo(leaflet_map);
   function resetHighlight(e) {
     geoJ.resetStyle(e.target);
     //delet text
+    legend.update();
   }
   function zoomToFeature(e) {
+    legend.boroZoom(e.target.feature.properties);
     leaflet_map.fitBounds(e.target.getBounds());
 
   }
@@ -233,7 +283,15 @@ legend.addTo(leaflet_map);
     .duration(800)
     .attr('r', 0)
   }
+  document.getElementById('switchButton1').onclick = function() {
+    legend.remove();
+    geoJ.remove();
+  }
 
+  document.getElementById('switchButton2').onclick = function() {
+    legend.addTo(leaflet_map);
+    geoJ.addTo(leaflet_map);
+  }
   function map_link() {
     return "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png";
   }
