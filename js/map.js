@@ -66,12 +66,16 @@ function worldMap(data,numClusters) {
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
         layer.bringToFront();
     }
+    //get textbox and print something?
+
   }
   function resetHighlight(e) {
     geoJ.resetStyle(e.target);
+    //delet text
   }
   function zoomToFeature(e) {
     leaflet_map.fitBounds(e.target.getBounds());
+    
   }
   function onEachFeature(feature, layer) {
     layer.on({
