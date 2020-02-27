@@ -71,6 +71,7 @@ function worldMap(data,numClusters) {
 
   };
 
+legend.addTo(leaflet_map);
   function choroplethStyle(d) {
     return {
 
@@ -106,7 +107,7 @@ function worldMap(data,numClusters) {
   }
   function zoomToFeature(e) {
     leaflet_map.fitBounds(e.target.getBounds());
-    
+
   }
   function onEachFeature(feature, layer) {
     layer.on({
@@ -121,7 +122,7 @@ function worldMap(data,numClusters) {
               style: choroplethStyle,
               onEachFeature: onEachFeature
             }).addTo(leaflet_map)
- 
+
   //-------------------------------------------
 
   function projectPointsOnMap(x, y){
