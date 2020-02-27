@@ -107,7 +107,17 @@ function worldMap(data,numClusters) {
 
 buttons.addTo(leaflet_map);
 
+var infotext = L.control({ position: "topleft" });
 
+infotext.onAdd = function(leaflet_map) {
+
+    this._div = L.DomUtil.create("div", "infotext");
+      this._div.innerHTML += '<p class="infotext" >Crime data visualization using parallel sets and heat map/scatter plot map </p>';
+
+return this._div;
+};
+
+infotext.addTo(leaflet_map);
   legend.update = function(d){
       this._div.innerHTML = '<span> Crime rate</span><br>';
         if(d == undefined) d = {};
