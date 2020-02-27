@@ -4,10 +4,10 @@ var world_map, dbscanner, chart
 
 
 d3.csv("data/NYPD_Complaint_Data_Historic_new.csv", function(data){
-    console.log(data)
+    
     //-------parse Data------------
     data = parseData(data);
-    
+    console.log(data)
     //Generating numerical data
 
     for (var i = 0; i < data.features.length; i++){

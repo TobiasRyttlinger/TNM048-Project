@@ -25,12 +25,13 @@ function worldMap(data,numClusters) {
   //Count the amount of crimes in each boro
   //place it in topoData
   var topoData = new getData();
-  var m =  b = x = s = q = 0;
+  
   countCrime(data)
 
 
 
   function countCrime(data){
+    var m =  b = x = s = q = 0;
     data.features.forEach(element => {
       if(element.properties.Boro == "MANHATTAN")++m
       if(element.properties.Boro == "BROOKLYN")++b
@@ -44,10 +45,7 @@ function worldMap(data,numClusters) {
       if(element.properties.BoroName == "Bronx")element.properties.amoutOfCrime =  x;
       if(element.properties.BoroName == "Staten Island")element.properties.amoutOfCrime =  s;
       if(element.properties.BoroName== "Queens")element.properties.amoutOfCrime =  q;
-
-
     })
-
   }
 
   //color depending on crime
@@ -91,7 +89,7 @@ function worldMap(data,numClusters) {
 
     layer.setStyle({
         weight: 5,
-        color: '#666',
+        color: 'white',
         dashArray: '',
         fillOpacity: 0.7
     });
