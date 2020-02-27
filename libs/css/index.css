@@ -84,3 +84,7 @@ hr{
 #svgId{
   display: none;
 }
+
+.buttons{
+  background-color: inherit;
+}

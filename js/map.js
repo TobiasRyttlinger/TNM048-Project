@@ -89,6 +89,25 @@ function worldMap(data,numClusters) {
 
   };
 
+  var buttons = L.control({ position: "bottomleft" });
+
+  buttons.onAdd = function(leaflet_map) {
+
+      this._div = L.DomUtil.create("div", "buttons");
+
+
+        this._div.innerHTML += '<button id="switchButton1" type="button" class="btn btn-outline-light"> Heatmap<button><br>';
+        this._div.innerHTML += '<button id="switchButton2" type="button" class="btn btn-outline-light"> Scatter plot<button><br>';
+
+
+  return this._div;
+
+  };
+
+
+buttons.addTo(leaflet_map);
+
+
   legend.update = function(d){
       this._div.innerHTML = '<span> Crime rate</span><br>';
         if(d == undefined) d = {};
