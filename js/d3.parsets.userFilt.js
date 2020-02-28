@@ -5,13 +5,7 @@
 var userFilt = {};
 
 //userFilt["selected_options"] = ["Boro","Level", "Type","Completed","Sex_susp","Age_vic","cluster","Place","Race_susp","Age_susp"];
-userFilt["selected_options"] = ["cluster","Boro", "Level","Type"];
-
-// ///// object consisting of dimension name: value name key:value pairs - these limit the input CSV values to only rows that have these dimension:value pairs.
-// ////////////items are added this like, key:[values] or dimension_name:[dimension_item_1, dimension_item_2] ////////////////////////////////////////////////////////////////////////////
-userFilt["limitations"] ={};
-// /////// stops functions from rebuilding drop-down menus after initial load because I messed up and set it up dumb
-userFilt["state"] = {"cycle":0}
+userFilt["selected_options"] = ["cluster","Boro", "Level","Age_susp"];
 
 //////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////   Helper Functions  /////////////////////////////////////

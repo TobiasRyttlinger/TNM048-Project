@@ -13,13 +13,13 @@
 .category:hover rect { fill-opacity: .3; }
 .dimension:hover > rect { fill-opacity: .3; }
 .ribbon path { stroke-opacity: 0; fill-opacity: .5; }
-.ribbon path.active { fill-opacity: .9; }
+.ribbon path.active { fill-opacity: 1; }
 .ribbon-mouse path { fill-opacity: 0; }
 
-.category-0 { fill: #1f77b4; stroke: #1f77b4; }
-.category-1 { fill: #ff7f0e; stroke: #ff7f0e; }
-.category-2 { fill: #2ca02c; stroke: #2ca02c; }
-.category-3 { fill: #d62728; stroke: #d62728; }
+.category-0 { fill: #E27d60; stroke: #E27d60; }
+.category-1 { fill: #41b3a3; stroke: #41b3a3; }
+.category-2 { fill: #E8a87c; stroke: #E8a87c; }
+.category-3 { fill: #c38d9e; stroke: #c38d9e; }
 .category-4 { fill: #9467bd; stroke: #9467bd; }
 .category-5 { fill: #8c564b; stroke: #8c564b; }
 .category-6 { fill: #e377c2; stroke: #e377c2; }
