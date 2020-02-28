@@ -95,3 +95,8 @@ hr{
 .buttons{
   background-color: inherit;
 }
+
+.githubText{
+  filter: invert(100%) sepia(81%) saturate(2%) hue-rotate(241deg) brightness(113%) contrast(101%);
+  float:left;
+}
