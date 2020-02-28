@@ -112,7 +112,8 @@ var infotext = L.control({ position: "topleft" });
 infotext.onAdd = function(leaflet_map) {
 
     this._div = L.DomUtil.create("div", "infotext");
-    this._div.innerHTML += '<p class="infotext" >Crime data visualization using parallel sets and heat map/scatter plot map </p>';
+    this._div.innerHTML += '<h3 class="infotext" >Crimes comitted in New York between 2018-19</h3><br>';
+    this._div.innerHTML += '<p style="font-size:15px;">Heat map/ scatter plot map </p>';
 
 return this._div;
 };
