@@ -1,6 +1,5 @@
 // Parallel Sets by Jason Davies, http://www.jasondavies.com/
 // Functionality based on http://eagereyes.org/parallel-sets
-// some modifications by Justin Gosses www.justingosses.com
 (function() {
   d3.parsets = function() {
     var event = d3.dispatch("sortDimensions", "sortCategories"),
@@ -11,7 +10,7 @@
         value_,
         spacing = 60,
         width,
-        height = 2000,
+        height = 1000,
         tension = 1,
         tension0,
         duration = 500;

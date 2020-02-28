@@ -11,8 +11,11 @@
 #mapid {
   position: relative;
   height:500px;
-  overflow:auto;
-
+  left:0px;
+    margin: 0 auto;
+}
+#vis{
+  margin: 0 auto;
 }
 
 .card{

@@ -8,28 +8,7 @@ d3.csv("data/NYPD_Complaint_Data_Historic_new.csv", function(data){
     //-------parse Data------------
     data = parseData(data);
     console.log(data)
-    //Generating numerical data
 
-    for (var i = 0; i < data.features.length; i++){
-
-            data.features[i].properties.Age =  getRandomInt(18, 65);
-
-
-    } //data.features[i].properties.Age...
-
-    //var Length_array = [];
-    for (var i = 0; i < data.features.length; i++){
-        data.features[i].properties.Length =  getRandomInt(140, 210);
-    }
-    /*Age_array.forEach(function (d, i) {
-          data.features[i].Age = d;
-
-    });
-    Length_array.forEach(function (d, i) {
-          data.features[i].Length = d;
-
-    });*/
-    //----------------------------------------
 
     dbscan_result = DBSCAN().eps(6).minPts(30).data(data.features);
     var [ClusterAssignment,NumClusters] = dbscan_result();
