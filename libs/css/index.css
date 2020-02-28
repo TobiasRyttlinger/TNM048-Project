@@ -6,24 +6,24 @@
   pointer-events: all;
 }
 .no-mouse {
-    pointer-events: none;
+  pointer-events: none;
 }
 #mapid {
-    border-radius: 10px;
+  border-radius: 10px;
   position: relative;
   height:500px;
-    margin: 0 auto;
+  margin: 0 auto;
 }
 #vis{
   -webkit-box-shadow: 3px 7px 12px -4px rgba(0,0,0,0.75);
--moz-box-shadow: 3px 7px 12px -4px rgba(0,0,0,0.75);
-box-shadow: 3px 7px 12px -4px rgba(0,0,0,0.75);
+  -moz-box-shadow: 3px 7px 12px -4px rgba(0,0,0,0.75);
+  box-shadow: 3px 7px 12px -4px rgba(0,0,0,0.75);
   border-radius: 10px;
   text-align: center;
   background-color: #262626 ;
   margin: 0 auto;
   padding-bottom: 20px;
-    padding-top: 10px;
+  padding-top: 10px;
 
 }
 
@@ -36,7 +36,9 @@ box-shadow: 3px 7px 12px -4px rgba(0,0,0,0.75);
 }
 
 #infobox{
-    color:white;
+  font-size: 14px;
+  text-align: left;
+  color:white;
 }
 
 hr{

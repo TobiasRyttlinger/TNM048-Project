@@ -5,7 +5,7 @@
 var userFilt = {};
 
 //userFilt["selected_options"] = ["Borough","Level", "Type","Completed","Sex_susp","Age_vic","cluster","Place","Race_susp","Age_susp"];
-userFilt["selected_options"] = ["Cluster","Borough", "Level","Type"];
+userFilt["selected_options"] = ["Cluster","Borough", "Level","Place"];
 
 //////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////   Helper Functions  /////////////////////////////////////
@@ -199,8 +199,9 @@ function build_parallel_sets(data){
   var chart = d3.parsets()
       .dimensions(userFilt["selected_options"]);
   var vis = d3.select("#vis").append("svg")
-      .attr("width", chart.width())
-      .attr("height", chart.height());
+
+ .attr("width", chart.width())
+ .attr("height", chart.height());
 
   var partition = d3.layout.partition()
       .sort(null)

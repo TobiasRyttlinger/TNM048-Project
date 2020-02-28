@@ -17,7 +17,7 @@
 .ribbon path.active { fill-opacity: 1; }
 .ribbon-mouse path { fill-opacity: 0; }
 
-.category-0 { fill: #bb86fd; stroke: #bb86fd; }
+.category-0 { fill: #121212; stroke: #bb86fd; }
 .category-1 { fill: #fddb86; stroke: #fddb86; }
 .category-2 { fill: #c7fd86; stroke: #c7fd86; }
 .category-3 { fill: #fd86c7; stroke: #fd86c7; }

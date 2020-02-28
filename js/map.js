@@ -16,8 +16,8 @@ function worldMap(data,numClusters) {
 
   var cValue = function(d) { return d;};
   var scaleQuantColor = d3.scale.quantile()
-  .range(["#111111","#1f78b4","#b2df8a","#33a02c","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6","#6a3d9a","#ffff99","#b15928"])
-  .domain([0,12]);
+  .range(["#121212","#fddb86","#c7fd86","#fd86c7","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#fd86c7","#c7fd86","#fddb86","#bb86fd"])
+  .domain([0,numClusters+1]);
 
 
 
@@ -235,7 +235,7 @@ legend.addTo(leaflet_map);
     var select = d3.select('#infobox')
     select
     .select('#borough')
-    .text('Borough: ' + d.properties.Boro.toLowerCase());
+    .text('Borough: ' + d.properties.Borough.toLowerCase());
     select
     .select('#date')
     .text('Date: ' + d.properties.Date_occurance.string+
@@ -254,10 +254,13 @@ legend.addTo(leaflet_map);
     .text('The crime was: ' + d.properties.Completed.toLowerCase());
     select
     .select('#place')
-    .text('Place the crime was  commited: ' + d.properties.Place. toLowerCase());
+    .text('Place: ' + d.properties.Place. toLowerCase());
     select
     .select('#type')
     .text('Type of crime: ' + d.properties.Type.toLowerCase());
+    select
+    .select('#cluster')
+    .text('Cluster: ' + d.properties.Cluster);
   })
   .on('mouseout', function(d){
     d3.select(this)
