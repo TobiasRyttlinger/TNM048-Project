@@ -344,7 +344,7 @@
               .attr("y", -20)
               .attr("height", 20);
           categoryEnter.append("line")
-              .style("stroke-width", 2);
+              .style("stroke-width",5);
           categoryEnter.append("text")
               .attr("dy", "-.3em")
               .style("fill","white");

@@ -9,6 +9,9 @@
   pointer-events: none;
 }
 #mapid {
+  -webkit-box-shadow: 3px 7px 12px -4px rgba(0,0,0,0.75);
+  -moz-box-shadow: 3px 7px 12px -4px rgba(0,0,0,0.75);
+  box-shadow: 3px 7px 12px -4px rgba(0,0,0,0.75);
   border-radius: 10px;
   position: relative;
   height:500px;
