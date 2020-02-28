@@ -112,7 +112,7 @@ var infotext = L.control({ position: "topleft" });
 infotext.onAdd = function(leaflet_map) {
 
     this._div = L.DomUtil.create("div", "infotext");
-      this._div.innerHTML += '<p class="infotext" >Crime data visualization using parallel sets and heat map/scatter plot map </p>';
+    this._div.innerHTML += '<p class="infotext" >Crime data visualization using parallel sets and heat map/scatter plot map </p>';
 
 return this._div;
 };
@@ -136,15 +136,15 @@ legend.boroZoom = function(d){
       if(d == undefined) d ={};
       Activated = true;
       this._div.innerHTML = '<b> Crime info of '+ d.BoroName +'</b><br>';
-      this._div.innerHTML += '<span> Amount of crimes:  '+d.amoutOfCrime+'</span><br>';
-      this._div.innerHTML += '<span> Average days to report: '+d.reported+'</span><br>';
-      this._div.innerHTML += '<span> Averge age of suspect: '+d.ageSM+' </span><br>';
-      this._div.innerHTML += '<span> Averge age of victum: '+d.ageVM+' </span><br>';
-      this._div.innerHTML += '<span> Susp amount of men: '+d.men_susp+' </span><br>';
-      this._div.innerHTML += '<span> Susp amount of women: '+d.women_susp+' </span><br>';
-      this._div.innerHTML += '<span> Vic amount of men: '+d.men_vic+' </span><br>';
-      this._div.innerHTML += '<span> Vic amount of women: '+d.women_vic+' </span><br>';
-      this._div.innerHTML += '<span> Vic amount of E?: '+d.E_vic+' </span><br>';
+      this._div.innerHTML += '<span> Nr of crimes commited: <b> '+d.amoutOfCrime+'</b></span><br>';
+      this._div.innerHTML += '<span> Average nr of days to report:<b> '+Math.round(d.reported)+'</b></span><br>';
+      this._div.innerHTML += '<span> Average age of suspect:<b> '+Math.round(d.ageSM)+'</b> </span><br>';
+      this._div.innerHTML += '<span> Average age of victim: <b>'+Math.round(d.ageVM)+'</b> </span><br>';
+      this._div.innerHTML += '<span> Crimes committed by males: <b>'+d.men_susp+'</b> </span><br>';
+      this._div.innerHTML += '<span> Crimes committed by females: <b>'+d.women_susp+' </b></span><br>';
+      this._div.innerHTML += '<span> Nr of male victims:<b> '+d.men_vic+' </b></span><br>';
+      this._div.innerHTML += '<span> Nr of male victims:<b> '+d.women_vic+' </b></span><br>';
+
 
 }
 legend.addTo(leaflet_map);
@@ -185,7 +185,7 @@ legend.addTo(leaflet_map);
   }
   function zoomToFeature(e) {
     legend.boroZoom(e.target.feature.properties);
-    leaflet_map.fitBounds(e.target.getBounds());
+    //leaflet_map.fitBounds(e.target.getBounds());
 
   }
   function onEachFeature(feature, layer) {
