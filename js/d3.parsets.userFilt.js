@@ -4,8 +4,8 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var userFilt = {};
 
-//userFilt["selected_options"] = ["Boro","Level", "Type","Completed","Sex_susp","Age_vic","cluster","Place","Race_susp","Age_susp"];
-userFilt["selected_options"] = ["cluster","Boro", "Level","Age_susp"];
+//userFilt["selected_options"] = ["Borough","Level", "Type","Completed","Sex_susp","Age_vic","cluster","Place","Race_susp","Age_susp"];
+userFilt["selected_options"] = ["Cluster","Borough", "Level","Type"];
 
 //////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////   Helper Functions  /////////////////////////////////////

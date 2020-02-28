@@ -122,12 +122,12 @@
           textEnter.append("tspan")
               .attr("class", "sort alpha")
               .attr("dx", "2em")
-              .text("alpha »")
+              .text("Order »")
               .on("mousedown.parsets", cancelEvent);
           textEnter.append("tspan")
               .attr("class", "sort size")
               .attr("dx", "2em")
-              .text("size »")
+              .text("Size »")
               .on("mousedown.parsets", cancelEvent);
           dimension
               .call(d3.behavior.drag()
@@ -174,9 +174,9 @@
                       .tween("ribbon", ribbonTweenY);
                 }));
           dimension.select("text").select("tspan.sort.alpha")
-              .on("click.parsets", sortBy("alpha", function(a, b) { return a.name < b.name ? 1 : -1; }, dimension));
+              .on("click.parsets", sortBy("Order", function(a, b) { return a.name < b.name ? 1 : -1; }, dimension));
           dimension.select("text").select("tspan.sort.size")
-              .on("click.parsets", sortBy("size", function(a, b) { return a.count - b.count; }, dimension));
+              .on("click.parsets", sortBy("Size", function(a, b) { return a.count - b.count; }, dimension));
           dimension.transition().duration(duration)
               .attr("transform", function(d) { return "translate(0," + d.y + ")"; })
               .tween("ribbon", ribbonTweenY);
@@ -346,7 +346,8 @@
           categoryEnter.append("line")
               .style("stroke-width", 2);
           categoryEnter.append("text")
-              .attr("dy", "-.3em");
+              .attr("dy", "-.3em")
+              .style("fill","white");
           category.select("rect")
               .attr("width", function(d) { return d.dx; })
               .attr("class", function(d) {

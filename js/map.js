@@ -42,7 +42,7 @@ function worldMap(data,numClusters) {
         boro.properties.ageVM = 0;
         var count = count2 = count3 = 0;
         data.features.forEach(element => {
-          if(element.properties.Boro.toLowerCase() === boro.properties.BoroName.toLowerCase()){
+          if(element.properties.Borough.toLowerCase() === boro.properties.BoroName.toLowerCase()){
             boro.properties.amoutOfCrime += 1;
             if(element.properties.Sex_susp === "M")boro.properties.men_susp +=1;
             if(element.properties.Sex_susp === "F")boro.properties.women_susp +=1;
@@ -227,7 +227,7 @@ legend.addTo(leaflet_map);
   .style("opacity", 0.8)
   .attr('r', 5)
   .style("fill", function(d) {
-    return scaleQuantColor(cValue(d.properties.cluster));
+    return scaleQuantColor(cValue(d.properties.Cluster));
   })
   .on('mouseover', function(d){
     d3.select(this)

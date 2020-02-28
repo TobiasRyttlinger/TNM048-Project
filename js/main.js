@@ -20,7 +20,7 @@ d3.csv("data/NYPD_Complaint_Data_Historic_new.csv", function(data){
 
     var numberOfClusters = [];
     ClusterAssignment.forEach(function (d, i) {
-    			data.features[i].properties.cluster = d;
+    			data.features[i].properties.Cluster = d;
   	});
 
 
@@ -68,7 +68,7 @@ function parseData(data){
                 Level: element.LAW_CAT_CD,
                 Type: element.OFNS_DESC,
                 KeyCode: parseInt(element.KY_CD),
-                Boro: element.BORO_NM,
+                Borough: element.BORO_NM,
                 Place: element.PREM_TYP_DESC,
                 Age_susp: ageParse(element.SUSP_AGE_GROUP),
                 Race_susp: element.SUSP_RACE,
