@@ -91,3 +91,10 @@ hr{
 .buttons{
   background-color: inherit;
 }
+
+
+.infotext{
+  font: 14px Arial, Helvetica, sans-serif;
+  font-size: 25px;
+  color:white;
+}
