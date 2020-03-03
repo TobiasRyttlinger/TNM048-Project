@@ -10,7 +10,7 @@ d3.csv("data/NYPD_Complaint_Data_Historic_new.csv", function(data){
     console.log(data)
 
 
-    dbscan_result = DBSCAN().eps(6).minPts(20).data(data.features);
+    dbscan_result = DBSCAN().eps(6).minPts(45).data(data.features);
     var [ClusterAssignment,NumClusters] = dbscan_result();
 
 
@@ -25,7 +25,7 @@ d3.csv("data/NYPD_Complaint_Data_Historic_new.csv", function(data){
 
 
 
-    console.log(NumClusters);
+    console.log("Number of clusters: " + NumClusters);
 
      world_map = new worldMap(data,NumClusters);
      chart = new build_parallel_sets(data.features,data.features);
@@ -149,6 +149,6 @@ function sexParse(d){
     if(ans === 3 || ans === 2|| ans== 4)d =  "M"
 
   }
-    console.log(d);
+
   return d;
 }
