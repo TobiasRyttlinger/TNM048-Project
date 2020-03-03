@@ -7,7 +7,7 @@ d3.csv("data/NYPD_Complaint_Data_Historic_new.csv", function(data){
 
     //-------parse Data------------
     data = parseData(data);
-    console.log(data)
+  //  console.log(data)
 
 
     dbscan_result = DBSCAN().eps(6).minPts(20).data(data.features);
@@ -149,6 +149,5 @@ function sexParse(d){
     if(ans === 3 || ans === 2|| ans== 4)d =  "M"
 
   }
-    console.log(d);
   return d;
 }

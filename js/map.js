@@ -51,12 +51,12 @@ function worldMap(data,numClusters) {
             if(element.properties.Sex_vic === "F")boro.properties.women_vic +=1;
             if(element.properties.Sex_vic === "E")boro.properties.E_vic +=1;
             boro.properties.reported += element.properties.Reported.days;
-            if(element.properties.Age_susp !== undefined){
-              boro.properties.ageSM += element.properties.Age_susp;
+            if(element.properties.AgeSuspect !== undefined){
+              boro.properties.ageSM += element.properties.AgeSuspect;
               count2++;
             }
-            if(element.properties.Age_vic !== undefined){
-              boro.properties.ageVM += element.properties.Age_vic;
+            if(element.properties.AgeVictim !== undefined){
+              boro.properties.ageVM += element.properties.AgeVictim;
               count3++;
             }
           }
@@ -146,7 +146,7 @@ infotext.addTo(leaflet_map);
         this._div.innerHTML += '<span> Crimes committed by males: <b>'+d.men_susp+'</b> </span><br>';
         this._div.innerHTML += '<span> Crimes committed by females: <b>'+d.women_susp+' </b></span><br>';
         this._div.innerHTML += '<span> Nr of male victims:<b> '+d.men_vic+' </b></span><br>';
-        this._div.innerHTML += '<span> Nr of male victims:<b> '+d.women_vic+' </b></span><br>';
+        this._div.innerHTML += '<span> Nr of woman victims:<b> '+d.women_vic+' </b></span><br>';
 
 
   }
