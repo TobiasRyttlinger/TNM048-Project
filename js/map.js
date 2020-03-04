@@ -69,7 +69,7 @@ function worldMap(data,numClusters) {
 
   //color depending on crime
   var boroColor = d3.scale.linear()
-  .domain([0, 409])
+  .domain([0, 3683])
   .range(['white', 'red']);
   //style of choropleth
 
@@ -238,7 +238,7 @@ legend.addTo(leaflet_map);
   .style("opacity", 0.8)
   .attr('r', 5)
   .style("fill", function(d) {
-  
+
     return scaleQuantColor(cValue(d.properties.Cluster));
   })
   .on('mouseover', function(d){

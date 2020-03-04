@@ -7,10 +7,10 @@ d3.csv("data/NYPD_Complaint_Data_Historic_new.csv", function(data){
 
     //-------parse Data------------
     data = parseData(data);
-  //  console.log(data)
+   console.log(data)
 
 
-    dbscan_result = DBSCAN().eps(6).minPts(45).data(data.features);
+    dbscan_result = DBSCAN().eps(9).minPts(1000).data(data.features);
     var [ClusterAssignment,NumClusters] = dbscan_result();
 
 
