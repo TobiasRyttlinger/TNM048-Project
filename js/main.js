@@ -123,6 +123,10 @@ function ageGroupParse(d){
 function reported(rep, dateO){
     rep = dateParse(rep);
     dateO = dateParse(dateO);
+    if(isNaN(dateO.date)){
+      rep.days = 0;
+      return rep
+    } 
     var day = rep.date - dateO.date;
     var m = rep.month-   dateO.month;
     var y = rep.year - dateO.year;
